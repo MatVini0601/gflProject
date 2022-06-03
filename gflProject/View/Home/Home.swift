@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  Home.swift
 //  gflProject
 //
 //  Created by Matheus Vinicius Mota Rodrigues on 03/06/22.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct Home: View {
     var body: some View {
-        TabBar()
+        Text("Hello, Tdolls")
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Home()
     }
 }

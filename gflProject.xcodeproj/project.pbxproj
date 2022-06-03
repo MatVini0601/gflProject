@@ -14,6 +14,7 @@
 		C72AA927284A7EE400CFBB8D /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AA926284A7EE400CFBB8D /* NavigationBar.swift */; };
 		C72AA92A284A7F0F00CFBB8D /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AA929284A7F0F00CFBB8D /* TabBar.swift */; };
 		C72AA92F284A7F6D00CFBB8D /* TdollList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AA92E284A7F6D00CFBB8D /* TdollList.swift */; };
+		C72AA932284A80B700CFBB8D /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AA931284A80B700CFBB8D /* Home.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		C72AA926284A7EE400CFBB8D /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		C72AA929284A7F0F00CFBB8D /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		C72AA92E284A7F6D00CFBB8D /* TdollList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollList.swift; sourceTree = "<group>"; };
+		C72AA931284A80B700CFBB8D /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,8 @@
 		C72AA923284A7EBA00CFBB8D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C72AA933284A81A100CFBB8D /* Equipments */,
+				C72AA930284A80A900CFBB8D /* Home */,
 				C72AA92B284A7F4800CFBB8D /* Tdoll */,
 				C72AA928284A7EFF00CFBB8D /* TabBar */,
 				C72AA925284A7EC900CFBB8D /* NavigationBar */,
@@ -138,6 +142,37 @@
 			children = (
 			);
 			path = Card;
+			sourceTree = "<group>";
+		};
+		C72AA930284A80A900CFBB8D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				C72AA931284A80B700CFBB8D /* Home.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		C72AA933284A81A100CFBB8D /* Equipments */ = {
+			isa = PBXGroup;
+			children = (
+				C72AA935284A93C100CFBB8D /* List */,
+				C72AA934284A93BB00CFBB8D /* Card */,
+			);
+			path = Equipments;
+			sourceTree = "<group>";
+		};
+		C72AA934284A93BB00CFBB8D /* Card */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Card;
+			sourceTree = "<group>";
+		};
+		C72AA935284A93C100CFBB8D /* List */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +249,7 @@
 				C72AA917284A7E6B00CFBB8D /* ContentView.swift in Sources */,
 				C72AA915284A7E6B00CFBB8D /* gflProjectApp.swift in Sources */,
 				C72AA927284A7EE400CFBB8D /* NavigationBar.swift in Sources */,
+				C72AA932284A80B700CFBB8D /* Home.swift in Sources */,
 				C72AA92A284A7F0F00CFBB8D /* TabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
