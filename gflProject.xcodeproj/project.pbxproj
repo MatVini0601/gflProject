@@ -15,6 +15,9 @@
 		C72AA92A284A7F0F00CFBB8D /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AA929284A7F0F00CFBB8D /* TabBar.swift */; };
 		C72AA92F284A7F6D00CFBB8D /* TdollList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AA92E284A7F6D00CFBB8D /* TdollList.swift */; };
 		C72AA932284A80B700CFBB8D /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AA931284A80B700CFBB8D /* Home.swift */; };
+		C72AA937284A947300CFBB8D /* EquipmentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AA936284A947300CFBB8D /* EquipmentList.swift */; };
+		C72AA939284A948F00CFBB8D /* TdollCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AA938284A948F00CFBB8D /* TdollCard.swift */; };
+		C72AA93B284A94A400CFBB8D /* EquipmentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AA93A284A94A400CFBB8D /* EquipmentCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,9 @@
 		C72AA929284A7F0F00CFBB8D /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		C72AA92E284A7F6D00CFBB8D /* TdollList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollList.swift; sourceTree = "<group>"; };
 		C72AA931284A80B700CFBB8D /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		C72AA936284A947300CFBB8D /* EquipmentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentList.swift; sourceTree = "<group>"; };
+		C72AA938284A948F00CFBB8D /* TdollCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollCard.swift; sourceTree = "<group>"; };
+		C72AA93A284A94A400CFBB8D /* EquipmentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +146,7 @@
 		C72AA92D284A7F5C00CFBB8D /* Card */ = {
 			isa = PBXGroup;
 			children = (
+				C72AA938284A948F00CFBB8D /* TdollCard.swift */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -164,6 +171,7 @@
 		C72AA934284A93BB00CFBB8D /* Card */ = {
 			isa = PBXGroup;
 			children = (
+				C72AA93A284A94A400CFBB8D /* EquipmentCard.swift */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -171,6 +179,7 @@
 		C72AA935284A93C100CFBB8D /* List */ = {
 			isa = PBXGroup;
 			children = (
+				C72AA936284A947300CFBB8D /* EquipmentList.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -245,8 +254,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C72AA937284A947300CFBB8D /* EquipmentList.swift in Sources */,
+				C72AA93B284A94A400CFBB8D /* EquipmentCard.swift in Sources */,
 				C72AA92F284A7F6D00CFBB8D /* TdollList.swift in Sources */,
 				C72AA917284A7E6B00CFBB8D /* ContentView.swift in Sources */,
+				C72AA939284A948F00CFBB8D /* TdollCard.swift in Sources */,
 				C72AA915284A7E6B00CFBB8D /* gflProjectApp.swift in Sources */,
 				C72AA927284A7EE400CFBB8D /* NavigationBar.swift in Sources */,
 				C72AA932284A80B700CFBB8D /* Home.swift in Sources */,
