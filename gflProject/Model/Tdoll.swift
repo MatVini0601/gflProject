@@ -50,6 +50,20 @@ class TdollModel{
             completion(false)
         }.resume()
     }
+    
+    func getTdolls(completion: @escaping (_ isSuccess: Bool) -> Void) async  throws -> [Tdoll]?{
+        guard let baseURL = URL(string: "http://localhost:3000/tdolls") else { return nil }
+        var request = URLRequest(url: baseURL)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        var tdolls: [Tdoll] = []
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let tdollsList = try? JSONDecoder().decode([Tdoll].self, from: data)
+        tdolls = tdollsList!
+        completion(true)
+        return tdolls
+    }
 }
 
 

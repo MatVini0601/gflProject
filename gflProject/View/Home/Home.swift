@@ -9,15 +9,30 @@ import SwiftUI
 
 struct Home: View {
     var body: some View {
-        Text("Post")
-            .onTapGesture {
-                let tdoll = TdollModel.Tdoll(id: 55, image: "Some Image", name: "M4A1", manufacturer: "16LAB", type: .AR)
-                TdollModel().post(tdoll) { isSuccess in
-                    if !isSuccess{
-                        print("deu errado")
+        HStack(spacing: 20){
+            Text("Post")
+                .onTapGesture {
+                    let tdoll = TdollModel.Tdoll(id: 56, image: "Some Image", name: "RO635", manufacturer: "16LAB", type: .AR)
+                    TdollModel().post(tdoll) { isSuccess in
+                        if !isSuccess{
+                            print("deu errado")
+                        }
                     }
                 }
-            }
+            
+            Text("Get")
+                .task {
+                    let tdolls = try? await TdollModel().getTdolls { isSuccess in
+                        if isSuccess{
+                            print("Funcionou")
+                        }
+                        else{
+                            print("deu erro")
+                        }
+                    }
+                    print(tdolls!)
+                }
+        }
     }
 }
 
