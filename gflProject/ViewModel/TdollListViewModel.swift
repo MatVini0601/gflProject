@@ -12,11 +12,8 @@ class TdollListViewModel: ObservableObject{
     
     func getData() async throws -> Void{
         do{
-            guard let tdolls = try? await TdollModel().getTdolls(completion: { isSuccess in
-                if !isSuccess{
-                    return
-                }
-            })else{ print("TdollListViewModel: failed at getting data from the server)"); return}
+            guard let tdolls = try? await TdollModel().getTdolls()
+            else{ print("TdollListViewModel: failed at getting data from the server)"); return}
             DispatchQueue.main.async{
                 self.tdollsList = tdolls
             }

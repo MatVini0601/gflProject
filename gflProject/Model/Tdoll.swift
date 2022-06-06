@@ -51,18 +51,45 @@ class TdollModel{
         }.resume()
     }
     
-    func getTdolls(completion: @escaping (_ isSuccess: Bool) -> Void) async  throws -> [Tdoll]?{
-        guard let baseURL = URL(string: "http://localhost:3000/tdolls") else { return nil }
+    func getTdolls() async  throws -> [Tdoll]? {
+        guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls") else { return nil }
+        guard let tdollList = try? await getData(with: request) else { return nil }
+        return tdollList
+    }
+    
+    func search(_ search: String, completion: @escaping (_ isSuccess: Bool) -> Void) async throws -> [Tdoll]? {
+        guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls/search?name=\(search)") else { return nil }
+        guard let tdollList = try? await getData(with: request) else { return nil }
+        return tdollList
+    }
+    
+    func getTdollByType(type: Tdoll.TdollType) async throws -> [Tdoll]? {
+        guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls/type/\(type.rawValue)") else { return nil }
+        guard let tdollList = try? await getData(with: request) else { return nil }
+        return tdollList
+    }
+    
+    func getTdollById(_ id: Int) async throws -> [Tdoll]? {
+        guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls/\(id)") else { return nil }
+        guard let tdollList = try? await getData(with: request) else { return [] }
+        return tdollList
+    }
+    
+    
+    //Métodos auxiliares
+    func setRequest(method: String, string url: String) -> URLRequest?{
+        guard let baseURL = URL(string: url) else { return nil}
         var request = URLRequest(url: baseURL)
-        request.httpMethod = "GET"
+        request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        var tdolls: [Tdoll] = []
+        return request
+    }
+
+    func getData(with request: URLRequest) async throws -> [Tdoll]?{
         let (data, _) = try await URLSession.shared.data(for: request)
-        let tdollsList = try? JSONDecoder().decode([Tdoll].self, from: data)
-        tdolls = tdollsList!
-        completion(true)
-        return tdolls
+        guard let tdollsList = try? JSONDecoder().decode([Tdoll].self, from: data) else { return [] }
+        return tdollsList
     }
 }
 

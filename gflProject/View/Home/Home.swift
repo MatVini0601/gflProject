@@ -14,26 +14,15 @@ struct Home: View {
                 .environmentObject(TdollListViewModel())
         }
 //        HStack(spacing: 20){
-//            Text("Post")
-//                .onTapGesture {
-//                    let tdoll = TdollModel.Tdoll(id: 56, image: "Some Image", name: "RO635", manufacturer: "16LAB", type: .AR)
-//                    TdollModel().post(tdoll) { isSuccess in
-//                        if !isSuccess{
-//                            print("deu errado")
-//                        }
-//                    }
+//            Text("Search")
+//                .task {
+//                    let res = try? await TdollModel().getTdollByType(type: .AR)
+//                    print(res)
 //                }
 //
 //            Text("Get")
 //                .task {
-//                    let tdolls = try? await TdollModel().getTdolls { isSuccess in
-//                        if isSuccess{
-//                            print("Funcionou")
-//                        }
-//                        else{
-//                            print("deu erro")
-//                        }
-//                    }
+//                    let tdolls = try? await TdollModel().getTdolls()
 //                    print(tdolls!)
 //                }
 //        }
