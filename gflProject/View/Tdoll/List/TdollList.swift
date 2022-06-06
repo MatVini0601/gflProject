@@ -8,13 +8,30 @@
 import SwiftUI
 
 struct TdollList: View {
+    @EnvironmentObject var tdollsListVM: TdollListViewModel
+    let collumns = [GridItem(.flexible(minimum: 0, maximum: .infinity)),
+                    GridItem(.flexible(minimum: 0, maximum: .infinity))]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView(.vertical, showsIndicators: false) {
+            LazyVGrid(columns: collumns, spacing: 20) {
+                ForEach(tdollsListVM.tdollsList, id: \.id){ item in
+                    TdollCard(tdolls: item)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding()
+        }
+        .task {
+            try! await tdollsListVM.getData()
+        }
+        .frame(maxWidth: .infinity)
     }
 }
 
 struct TdollList_Previews: PreviewProvider {
     static var previews: some View {
         TdollList()
+//            .environmentObject(await TdollListViewModel())
     }
 }
