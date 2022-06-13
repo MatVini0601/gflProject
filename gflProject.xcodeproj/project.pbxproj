@@ -23,6 +23,7 @@
 		C7CA7779284A9A4200E70BD8 /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CA7778284A9A4200E70BD8 /* Equipment.swift */; };
 		C7CA777B284A9BAC00E70BD8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CA777A284A9BAC00E70BD8 /* User.swift */; };
 		C7DDADA02857D73900BDC8EC /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDAD9F2857D73900BDC8EC /* Search.swift */; };
+		C7DDADA42857E72400BDC8EC /* Ripple.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDADA32857E72400BDC8EC /* Ripple.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		C7CA7778284A9A4200E70BD8 /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
 		C7CA777A284A9BAC00E70BD8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C7DDAD9F2857D73900BDC8EC /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		C7DDADA32857E72400BDC8EC /* Ripple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ripple.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 		C72AA913284A7E6B00CFBB8D /* gflProject */ = {
 			isa = PBXGroup;
 			children = (
+				C7DDADA12857E6FC00BDC8EC /* Extensions */,
 				C72AA924284A7EBF00CFBB8D /* ViewModel */,
 				C72AA923284A7EBA00CFBB8D /* View */,
 				C72AA922284A7EB400CFBB8D /* Model */,
@@ -207,6 +210,22 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		C7DDADA12857E6FC00BDC8EC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C7DDADA22857E70800BDC8EC /* Animations */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C7DDADA22857E70800BDC8EC /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				C7DDADA32857E72400BDC8EC /* Ripple.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -289,6 +308,7 @@
 				C7C866A4284E78B6002DAE24 /* TdollListViewModel.swift in Sources */,
 				C72AA927284A7EE400CFBB8D /* NavigationBar.swift in Sources */,
 				C72AA932284A80B700CFBB8D /* Home.swift in Sources */,
+				C7DDADA42857E72400BDC8EC /* Ripple.swift in Sources */,
 				C72AA92A284A7F0F00CFBB8D /* TabBar.swift in Sources */,
 				C7DDADA02857D73900BDC8EC /* Search.swift in Sources */,
 			);

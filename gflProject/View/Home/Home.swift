@@ -12,8 +12,6 @@ struct Home: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-//            Search(search: search)
-//                .environmentObject(TdollListViewModel())
             TdollList()
                 .environmentObject(TdollListViewModel())
         }
