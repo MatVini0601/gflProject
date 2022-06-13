@@ -9,29 +9,41 @@ import SwiftUI
 
 struct TdollList: View {
     @EnvironmentObject var tdollsListVM: TdollListViewModel
+    
     let collumns = [GridItem(.flexible(minimum: 0, maximum: .infinity)),
                     GridItem(.flexible(minimum: 0, maximum: .infinity))]
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVGrid(columns: collumns, spacing: 20) {
-                ForEach(tdollsListVM.tdollsList, id: \.id){ item in
-                    TdollCard(tdolls: item)
+        VStack{
+            Search()
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVGrid(columns: collumns, spacing: 20) {
+                    ForEach(tdollsListVM.tdollsList, id: \.id){ item in
+                        TdollCard(tdolls: item)
+                    }
+                    .animation(.ripple())
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding()
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding()
+            .task {
+                try! await tdollsListVM.getData()
+            }
+            .frame(maxWidth: .infinity)
         }
-        .task {
-            try! await tdollsListVM.getData()
-        }
-        .frame(maxWidth: .infinity)
     }
 }
 
 struct TdollList_Previews: PreviewProvider {
     static var previews: some View {
         TdollList()
-//            .environmentObject(await TdollListViewModel())
+            .environmentObject(TdollListViewModel())
+    }
+}
+
+extension Animation {
+    static func ripple() -> Animation {
+        Animation.spring(dampingFraction: 0.5)
+            .speed(2)
     }
 }

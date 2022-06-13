@@ -22,6 +22,7 @@
 		C7C866A4284E78B6002DAE24 /* TdollListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C866A3284E78B6002DAE24 /* TdollListViewModel.swift */; };
 		C7CA7779284A9A4200E70BD8 /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CA7778284A9A4200E70BD8 /* Equipment.swift */; };
 		C7CA777B284A9BAC00E70BD8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CA777A284A9BAC00E70BD8 /* User.swift */; };
+		C7DDADA02857D73900BDC8EC /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDAD9F2857D73900BDC8EC /* Search.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		C7C866A3284E78B6002DAE24 /* TdollListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollListViewModel.swift; sourceTree = "<group>"; };
 		C7CA7778284A9A4200E70BD8 /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
 		C7CA777A284A9BAC00E70BD8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C7DDAD9F2857D73900BDC8EC /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		C72AA923284A7EBA00CFBB8D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C7DDAD9E2857D72A00BDC8EC /* Search */,
 				C72AA933284A81A100CFBB8D /* Equipments */,
 				C72AA930284A80A900CFBB8D /* Home */,
 				C72AA92B284A7F4800CFBB8D /* Tdoll */,
@@ -196,6 +199,14 @@
 			path = List;
 			sourceTree = "<group>";
 		};
+		C7DDAD9E2857D72A00BDC8EC /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				C7DDAD9F2857D73900BDC8EC /* Search.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -279,6 +290,7 @@
 				C72AA927284A7EE400CFBB8D /* NavigationBar.swift in Sources */,
 				C72AA932284A80B700CFBB8D /* Home.swift in Sources */,
 				C72AA92A284A7F0F00CFBB8D /* TabBar.swift in Sources */,
+				C7DDADA02857D73900BDC8EC /* Search.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

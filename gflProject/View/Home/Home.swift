@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct Home: View {
+    @State var search: String = ""
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+//            Search(search: search)
+//                .environmentObject(TdollListViewModel())
             TdollList()
                 .environmentObject(TdollListViewModel())
         }
