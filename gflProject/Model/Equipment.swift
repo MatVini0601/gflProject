@@ -8,7 +8,7 @@
 import Foundation
 
 
-class EquipmentsModel{
+class EquipmentModel{
     struct Equipment: Decodable{
         let id: Int
         let image: String
