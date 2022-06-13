@@ -24,6 +24,7 @@
 		C7CA777B284A9BAC00E70BD8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CA777A284A9BAC00E70BD8 /* User.swift */; };
 		C7DDADA02857D73900BDC8EC /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDAD9F2857D73900BDC8EC /* Search.swift */; };
 		C7DDADA42857E72400BDC8EC /* Ripple.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDADA32857E72400BDC8EC /* Ripple.swift */; };
+		C7DDADA62857E95000BDC8EC /* EquipmentsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDADA52857E95000BDC8EC /* EquipmentsHome.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		C7CA777A284A9BAC00E70BD8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C7DDAD9F2857D73900BDC8EC /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		C7DDADA32857E72400BDC8EC /* Ripple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ripple.swift; sourceTree = "<group>"; };
+		C7DDADA52857E95000BDC8EC /* EquipmentsHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentsHome.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				C72AA931284A80B700CFBB8D /* Home.swift */,
+				C7DDADA52857E95000BDC8EC /* EquipmentsHome.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				C72AA937284A947300CFBB8D /* EquipmentList.swift in Sources */,
 				C72AA93B284A94A400CFBB8D /* EquipmentCard.swift in Sources */,
 				C7CA7779284A9A4200E70BD8 /* Equipment.swift in Sources */,
+				C7DDADA62857E95000BDC8EC /* EquipmentsHome.swift in Sources */,
 				C72AA92F284A7F6D00CFBB8D /* TdollList.swift in Sources */,
 				C72AA93D284A951400CFBB8D /* Tdoll.swift in Sources */,
 				C72AA917284A7E6B00CFBB8D /* ContentView.swift in Sources */,
