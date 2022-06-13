@@ -14,6 +14,10 @@ struct TabBar: View {
                 .tabItem{
                     Label("Tdolls", systemImage: "magnifyingglass")
                 }
+            EquipmentsHome()
+                .tabItem {
+                    Label("Equipamentos", systemImage: "magnifyingglass")
+                }
         }
     }
 }
