@@ -57,7 +57,7 @@ class TdollModel{
         return tdollList
     }
     
-    func search(_ search: String, completion: @escaping (_ isSuccess: Bool) -> Void) async throws -> [Tdoll]? {
+    func search(_ search: String) async throws -> [Tdoll]? {
         guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls/search?name=\(search)") else { return nil }
         guard let tdollList = try? await getData(with: request) else { return nil }
         return tdollList
