@@ -24,14 +24,7 @@ class TdollListViewModel: ObservableObject{
     
     func getSearch(_ search: String) async throws -> Void{
         do{
-            guard let searchedTdoll = try? await TdollModel().search(search, completion: { isSuccess in
-                if isSuccess{
-                    print("Sucesso")
-                }
-                else{
-                    print("Não deu")
-                }
-            }) else { return }
+            guard let searchedTdoll = try? await TdollModel().search(search) else { return }
             DispatchQueue.main.async {
                 self.tdollsList = searchedTdoll
             }
