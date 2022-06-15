@@ -9,7 +9,9 @@ import SwiftUI
 
 struct Search: View {
     @EnvironmentObject var tdollsListVM: TdollListViewModel
+    @EnvironmentObject var equipmentListVM: EquipmentListViewModel
     @State var search: String = ""
+    var type: String
     let LightGray = Color("LightGray")
     let lightYellow = Color("LightYellow")
     
@@ -19,8 +21,15 @@ struct Search: View {
                 TextField("Search", text: $search)
                     .onChange(of: self.search, perform: { newValue in
                         Task{
-                            if search.isEmpty { try! await tdollsListVM.getData() }
-                            else{ try! await tdollsListVM.getSearch(search) }
+                            if(type == "Tdoll"){
+                                if search.isEmpty { try! await tdollsListVM.getData() }
+                                else{ try! await tdollsListVM.getSearch(search) }
+                            }
+                            else{
+                                if search.isEmpty { try! await equipmentListVM.getData() }
+                                else{ try! await equipmentListVM.getSearch(search) }
+                            }
+                            
                         }
                     })
                     .padding()
@@ -44,9 +53,14 @@ struct Search: View {
     }
 }
 
+func getByType() async throws -> Void{
+    
+}
+
 struct Search_Previews: PreviewProvider {
     static var previews: some View {
-        Search()
+        Search(type: "Tdoll")
             .environmentObject(TdollListViewModel())
+            .environmentObject(EquipmentListViewModel())
     }
 }
