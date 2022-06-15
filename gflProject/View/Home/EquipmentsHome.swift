@@ -10,8 +10,8 @@ import SwiftUI
 struct EquipmentsHome: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            TdollList()
-                .environmentObject(TdollListViewModel())
+            EquipmentList()
+                .environmentObject(EquipmentListViewModel())
         }
     }
 }

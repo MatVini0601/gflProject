@@ -15,15 +15,21 @@ class EquipmentModel{
         let name: String
         let type: EquipmentType
         
-        enum EquipmentType: Decodable{
-            case ACCESSORIES
-            case MAGAZINE
-            case TDOLL
+        enum EquipmentType: String, Decodable{
+            case ACCESSORIES = "Accessories"
+            case MAGAZINE = "Magazine"
+            case TDOLL = "Tdoll"
         }
     }
     
     func getEquipments() async  throws -> [Equipment]? {
-        guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls") else { return nil }
+        guard let request = setRequest(method: "GET", string: "http://localhost:3000/equipments") else { return nil }
+        guard let equipmentList = try? await getData(with: request) else { return nil }
+        return equipmentList
+    }
+    
+    func search(_ search: String) async throws -> [Equipment]? {
+        guard let request = setRequest(method: "GET", string: "http://localhost:3000/equipments/search?name=\(search)") else { return nil }
         guard let equipmentList = try? await getData(with: request) else { return nil }
         return equipmentList
     }

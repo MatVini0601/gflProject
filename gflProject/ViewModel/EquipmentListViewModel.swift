@@ -18,4 +18,13 @@ class EquipmentListViewModel: ObservableObject {
             }
         }
     }
+    
+    func getSearch(_ search: String) async throws -> Void{
+        do{
+            guard let searchedEquipent = try? await EquipmentModel().search(search) else { return }
+            DispatchQueue.main.async {
+                self.equipmentList = searchedEquipent
+            }
+        }
+    }
 }
