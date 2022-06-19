@@ -10,7 +10,9 @@ import SwiftUI
 struct TabBar: View {
     var body: some View {
         TabView{
-            Home()
+            NavigationView{
+                Home()
+            }
                 .tabItem{
                     Label("Tdolls", systemImage: "magnifyingglass")
                 }
@@ -19,6 +21,7 @@ struct TabBar: View {
                     Label("Equipamentos", systemImage: "magnifyingglass")
                 }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
