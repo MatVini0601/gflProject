@@ -26,6 +26,9 @@
 		C7DDADA42857E72400BDC8EC /* Ripple.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDADA32857E72400BDC8EC /* Ripple.swift */; };
 		C7DDADA62857E95000BDC8EC /* EquipmentsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDADA52857E95000BDC8EC /* EquipmentsHome.swift */; };
 		C7DDADA82857EA4300BDC8EC /* EquipmentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDADA72857EA4300BDC8EC /* EquipmentListViewModel.swift */; };
+		C7E8D8EA285FA7C200D89CB9 /* TdollPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E8D8E9285FA7C200D89CB9 /* TdollPost.swift */; };
+		C7E8D8EE285FA85200D89CB9 /* TdollPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E8D8ED285FA85200D89CB9 /* TdollPostViewModel.swift */; };
+		C7E8D8F1285FBB3700D89CB9 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E8D8F0285FBB3700D89CB9 /* TopBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +52,9 @@
 		C7DDADA32857E72400BDC8EC /* Ripple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ripple.swift; sourceTree = "<group>"; };
 		C7DDADA52857E95000BDC8EC /* EquipmentsHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentsHome.swift; sourceTree = "<group>"; };
 		C7DDADA72857EA4300BDC8EC /* EquipmentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentListViewModel.swift; sourceTree = "<group>"; };
+		C7E8D8E9285FA7C200D89CB9 /* TdollPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollPost.swift; sourceTree = "<group>"; };
+		C7E8D8ED285FA85200D89CB9 /* TdollPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollPostViewModel.swift; sourceTree = "<group>"; };
+		C7E8D8F0285FBB3700D89CB9 /* TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,7 @@
 		C72AA923284A7EBA00CFBB8D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C7E8D8EF285FBB1A00D89CB9 /* TopBar */,
 				C7DDAD9E2857D72A00BDC8EC /* Search */,
 				C72AA933284A81A100CFBB8D /* Equipments */,
 				C72AA930284A80A900CFBB8D /* Home */,
@@ -127,8 +134,8 @@
 		C72AA924284A7EBF00CFBB8D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				C7C866A3284E78B6002DAE24 /* TdollListViewModel.swift */,
-				C7DDADA72857EA4300BDC8EC /* EquipmentListViewModel.swift */,
+				C7E8D8EC285FA82E00D89CB9 /* Equipment */,
+				C7E8D8EB285FA82700D89CB9 /* Tdoll */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -154,6 +161,7 @@
 			children = (
 				C72AA92D284A7F5C00CFBB8D /* Card */,
 				C72AA92C284A7F5400CFBB8D /* List */,
+				C7E8D8E9285FA7C200D89CB9 /* TdollPost.swift */,
 			);
 			path = Tdoll;
 			sourceTree = "<group>";
@@ -232,6 +240,31 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
+		C7E8D8EB285FA82700D89CB9 /* Tdoll */ = {
+			isa = PBXGroup;
+			children = (
+				C7C866A3284E78B6002DAE24 /* TdollListViewModel.swift */,
+				C7E8D8ED285FA85200D89CB9 /* TdollPostViewModel.swift */,
+			);
+			path = Tdoll;
+			sourceTree = "<group>";
+		};
+		C7E8D8EC285FA82E00D89CB9 /* Equipment */ = {
+			isa = PBXGroup;
+			children = (
+				C7DDADA72857EA4300BDC8EC /* EquipmentListViewModel.swift */,
+			);
+			path = Equipment;
+			sourceTree = "<group>";
+		};
+		C7E8D8EF285FBB1A00D89CB9 /* TopBar */ = {
+			isa = PBXGroup;
+			children = (
+				C7E8D8F0285FBB3700D89CB9 /* TopBar.swift */,
+			);
+			path = TopBar;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -305,8 +338,11 @@
 				C72AA937284A947300CFBB8D /* EquipmentList.swift in Sources */,
 				C72AA93B284A94A400CFBB8D /* EquipmentCard.swift in Sources */,
 				C7CA7779284A9A4200E70BD8 /* Equipment.swift in Sources */,
+				C7E8D8EA285FA7C200D89CB9 /* TdollPost.swift in Sources */,
+				C7E8D8EE285FA85200D89CB9 /* TdollPostViewModel.swift in Sources */,
 				C7DDADA62857E95000BDC8EC /* EquipmentsHome.swift in Sources */,
 				C72AA92F284A7F6D00CFBB8D /* TdollList.swift in Sources */,
+				C7E8D8F1285FBB3700D89CB9 /* TopBar.swift in Sources */,
 				C72AA93D284A951400CFBB8D /* Tdoll.swift in Sources */,
 				C72AA917284A7E6B00CFBB8D /* ContentView.swift in Sources */,
 				C7DDADA82857EA4300BDC8EC /* EquipmentListViewModel.swift in Sources */,
