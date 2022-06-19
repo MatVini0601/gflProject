@@ -12,9 +12,12 @@ struct Home: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+            TopBar()
             TdollList()
                 .environmentObject(TdollListViewModel())
         }
+        .navigationTitle("")
+        .navigationBarHidden(true)
 //        HStack(spacing: 20){
 //            Text("Search")
 //                .task {
