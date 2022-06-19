@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct Search: View {
-    @EnvironmentObject var tdollsListVM: TdollListViewModel
-    @EnvironmentObject var equipmentListVM: EquipmentListViewModel
-    @State var search: String = ""
+    @EnvironmentObject private var tdollsListVM: TdollListViewModel
+    @EnvironmentObject private var equipmentListVM: EquipmentListViewModel
+    @State private var search: String = ""
     var type: String
-    let LightGray = Color("LightGray")
-    let lightYellow = Color("LightYellow")
+    private let LightGray = Color("LightGray")
+    private let lightYellow = Color("LightYellow")
     
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
@@ -51,10 +51,6 @@ struct Search: View {
         }
         .padding(.horizontal)
     }
-}
-
-func getByType() async throws -> Void{
-    
 }
 
 struct Search_Previews: PreviewProvider {
