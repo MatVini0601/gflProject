@@ -18,7 +18,8 @@ struct TdollCard: View {
                     .cornerRadius(16)
             }placeholder: {
                 ProgressView()
-                    .frame(maxWidth: 200, maxHeight: 300, alignment: .center)
+                    .frame(width: 175, height: 180, alignment: .center)
+//                    .frame(maxWidth: 200, maxHeight: 300, alignment: .center)
             }
             //Info
             Text(tdolls.name)

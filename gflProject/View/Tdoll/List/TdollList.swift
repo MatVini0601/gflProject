@@ -10,8 +10,8 @@ import SwiftUI
 struct TdollList: View {
     @EnvironmentObject var tdollsListVM: TdollListViewModel
     
-    let collumns = [GridItem(.flexible(minimum: 0, maximum: .infinity)),
-                    GridItem(.flexible(minimum: 0, maximum: .infinity))]
+    let collumns = [GridItem(.flexible()),
+                    GridItem(.flexible())]
     
     var body: some View {
         VStack{
@@ -21,13 +21,11 @@ struct TdollList: View {
                     ForEach(tdollsListVM.tdollsList, id: \.id){ item in
                         TdollCard(tdolls: item)
                     }
-                    .animation(.ripple())
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding()
             }
             .task {
-                try! await tdollsListVM.getData()
+                if tdollsListVM.tdollsList.isEmpty{ try! await tdollsListVM.getData() }
             }
             .frame(maxWidth: .infinity)
         }
