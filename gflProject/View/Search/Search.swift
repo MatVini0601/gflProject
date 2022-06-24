@@ -10,7 +10,7 @@ import SwiftUI
 struct Search: View {
     @EnvironmentObject private var tdollsListVM: TdollListViewModel
     @EnvironmentObject private var equipmentListVM: EquipmentListViewModel
-    @State private var search: String = ""
+    @State var search: String = ""
     var type: String
     private let LightGray = Color("LightGray")
     private let lightYellow = Color("LightYellow")
