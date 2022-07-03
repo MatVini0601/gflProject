@@ -9,15 +9,16 @@ import SwiftUI
 
 struct TdollList: View {
     @EnvironmentObject var tdollsListVM: TdollListViewModel
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
-    let collumns = [GridItem(.flexible()),
-                    GridItem(.flexible())]
+    var collumnsIphone: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
+    var collumnsIpad: [GridItem] = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
         VStack{
             Search(type: "Tdoll")
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVGrid(columns: collumns, spacing: 20) {
+                LazyVGrid(columns: horizontalSizeClass! == .regular ? collumnsIpad: collumnsIphone, spacing: 20) {
                     ForEach(tdollsListVM.tdollsList, id: \.id){ item in
                         TdollCard(tdolls: item)
                     }
