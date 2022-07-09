@@ -18,6 +18,7 @@ struct TdollPost: View {
     @State private var type: TdollModel.Tdoll.TdollType = .AR
     
     @State private var isShowing = false
+    @State private var isPerformingPost = false
     
     @State private var typeSelection: TdollModel.Tdoll.TdollType = .AR
     @State private var manufacturerSelection = "16LAB"
@@ -117,6 +118,8 @@ struct TdollPost: View {
                 .padding()
                 
                 Button {
+                    isPerformingPost = true
+                    
                     let tdoll = TdollModel.Tdoll.init(
                         id: Int(self.ID) ?? 0,
                         image: self.imageURL,
@@ -124,12 +127,22 @@ struct TdollPost: View {
                         manufacturer: self.manufacturerSelection,
                         type: self.typeSelection)
                     
-                    tdollPostVM.postTdoll(tdoll)
-                    isShowing.toggle()
-                    
+                    Task{
+                        try await tdollPostVM.postTdoll(tdoll)
+                        isPerformingPost = false
+                        isShowing = true
+                    }
                 } label: {
-                    Text("Salvar")
+                    ZStack{
+                        Text("Salvar")
+                            .opacity(isPerformingPost ? 0 : 1)
+                        if isPerformingPost {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                        }
+                    }
                 }
+                .disabled(isPerformingPost)
                 .foregroundColor(.black)
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -155,6 +168,5 @@ struct TdollPost_Previews: PreviewProvider {
     static var previews: some View {
         TdollPost()
             .environmentObject(TdollPostViewModel())
-            .environmentObject(TdollListViewModel())
     }
 }

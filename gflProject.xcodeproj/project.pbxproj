@@ -159,9 +159,9 @@
 		C72AA92B284A7F4800CFBB8D /* Tdoll */ = {
 			isa = PBXGroup;
 			children = (
+				C779B26F287A400700EAB2A0 /* Post */,
 				C72AA92D284A7F5C00CFBB8D /* Card */,
 				C72AA92C284A7F5400CFBB8D /* List */,
-				C7E8D8E9285FA7C200D89CB9 /* TdollPost.swift */,
 			);
 			path = Tdoll;
 			sourceTree = "<group>";
@@ -214,6 +214,14 @@
 				C72AA936284A947300CFBB8D /* EquipmentList.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		C779B26F287A400700EAB2A0 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				C7E8D8E9285FA7C200D89CB9 /* TdollPost.swift */,
+			);
+			path = Post;
 			sourceTree = "<group>";
 		};
 		C7DDAD9E2857D72A00BDC8EC /* Search */ = {
