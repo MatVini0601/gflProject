@@ -26,7 +26,8 @@ struct TdollList: View {
                 .padding()
             }
             .task {
-                if tdollsListVM.tdollsList.isEmpty{ try! await tdollsListVM.getData() }
+                // Also reload data after post new tdoll
+                try! await tdollsListVM.getData()
             }
             .frame(maxWidth: .infinity)
         }
