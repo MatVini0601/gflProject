@@ -136,7 +136,9 @@ struct TdollPost: View {
                 .background(lightYellow)
                 .padding()
                 .alert("Alert", isPresented: $isShowing, actions: {
-                    Button("OK", role: .cancel) { presentation.wrappedValue.dismiss() }
+                    Button("OK", role: .cancel) {
+                        if tdollPostVM.ErrorType == .NoError { presentation.wrappedValue.dismiss() }
+                    }
                 }, message: {
                     Text(tdollPostVM.alertMessage)
                 })
@@ -153,5 +155,6 @@ struct TdollPost_Previews: PreviewProvider {
     static var previews: some View {
         TdollPost()
             .environmentObject(TdollPostViewModel())
+            .environmentObject(TdollListViewModel())
     }
 }
