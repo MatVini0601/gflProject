@@ -33,47 +33,35 @@ class TdollModel{
         case NoError
     }
 
-    func post(_ tdoll: Tdoll, completion: @escaping (_ isSuccess: Bool,_ error: errorTypes) -> Void){
-    guard let baseURL = URL(string: "http://localhost:3000/tdolls") else { return }
-    let validation = validateTdoll(tdoll)
-    
-    switch(validation){
-        case .NoError:
-            completion(true, .NoError)
-            break
-        case .RequiredFieldEmpty:
-            completion(false, .RequiredFieldEmpty)
-            return
-        case .NegativeID:
-            completion(false, .NegativeID)
-            return
-        case .ServerError:
-            completion(false, .ServerError)
-            return
-    }
-    
-    let tdoll: [String: Any] = [
-        "id" : tdoll.id,
-        "image": tdoll.image,
-        "name": tdoll.name,
-        "manufacturer": tdoll.manufacturer,
-        "type": tdoll.type.rawValue
-    ]
-    let body = try? JSONSerialization.data(withJSONObject: tdoll, options: [])
-    
-    var request = URLRequest(url: baseURL)
-    request.httpMethod = "POST"
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    request.httpBody = body
-    
-    URLSession.shared.dataTask(with: request) { data, response, error in
-        if error == nil {
-            completion(true, .NoError)
-            return
+    func post(_ tdoll: Tdoll, completion: @escaping (_ isSuccess: Bool,_ error: errorTypes) -> Void) async throws{
+        let validation = validateTdoll(tdoll)
+        switch(validation){
+            case .RequiredFieldEmpty:
+                completion(false, .RequiredFieldEmpty)
+                return
+            case .NegativeID:
+                completion(false, .NegativeID)
+                return
+            default: break
         }
-        completion(false, .ServerError)
-    }.resume()
-}
+        
+        guard var request = setRequest(method: "POST", string: "http://localhost:3000/tdolls") else { return }
+        
+        let tdoll: [String: Any] = [
+            "id" : tdoll.id,
+            "image": tdoll.image,
+            "name": tdoll.name,
+            "manufacturer": tdoll.manufacturer,
+            "type": tdoll.type.rawValue
+        ]
+        
+        let body = try? JSONSerialization.data(withJSONObject: tdoll, options: [])
+        request.httpBody = body
+        
+        let (_, response) = try await URLSession.shared.data(for: request)
+        guard (response as? HTTPURLResponse)?.statusCode == 201 else { completion(false, .ServerError); return }
+        completion(true, .NoError)
+    }
     
     func getTdolls() async  throws -> [Tdoll]? {
         guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls") else { return nil }
@@ -97,6 +85,10 @@ class TdollModel{
         guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls/\(id)") else { return nil }
         guard let tdollList = try? await getData(with: request) else { return [] }
         return tdollList
+    }
+    
+    func updateTdoll(_ id: Int, completion: @escaping (_ isSucess: Bool,_ Error: errorTypes) -> Void){
+        
     }
     
     
