@@ -21,7 +21,6 @@ struct EquipmentList: View {
                     ForEach(equipmentListVM.equipmentList, id: \.id){ item in
                         EquipmentCard(equipment: item)
                     }
-                    .animation(.ripple())
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding()
