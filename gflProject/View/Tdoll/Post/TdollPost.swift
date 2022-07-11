@@ -126,7 +126,6 @@ struct TdollPost: View {
                         name: self.name,
                         manufacturer: self.manufacturerSelection,
                         type: self.typeSelection)
-                    
                     Task{
                         try await tdollPostVM.postTdoll(tdoll)
                         isPerformingPost = false
