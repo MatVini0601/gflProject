@@ -87,12 +87,37 @@ class TdollModel{
         return tdollList
     }
     
-    func updateTdoll(_ id: Int, completion: @escaping (_ isSucess: Bool,_ Error: errorTypes) -> Void){
+    func updateTdoll(_ id: Int, _ tdoll: Tdoll,  completion: @escaping (_ isSuccess: Bool,_ error: errorTypes) -> Void) async throws{
+        let validation = validateTdoll(tdoll)
+        switch(validation){
+            case .RequiredFieldEmpty:
+                completion(false, .RequiredFieldEmpty)
+                return
+            case .NegativeID:
+                completion(false, .NegativeID)
+                return
+            default: break
+        }
         
+        let updateTdoll: [String: Any] = [
+            "image": tdoll.image,
+            "name": tdoll.name,
+            "manufacturer": tdoll.manufacturer,
+            "type": tdoll.type.rawValue
+        ]
+        
+        guard var request = setRequest(method: "PATCH", string: "http://localhost:3000/tdolls/\(id)") else { return }
+        
+        let body = try? JSONSerialization.data(withJSONObject: updateTdoll, options: [])
+        request.httpBody = body
+        
+        let (_, response) = try await URLSession.shared.data(for: request)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else { completion(false, .ServerError); return }
+        completion(true, .NoError)
     }
     
     
-    //Métodos auxiliares
+    // MARK: Métodos auxiliares
     private func setRequest(method: String, string url: String) -> URLRequest?{
         guard let baseURL = URL(string: url) else { return nil}
         var request = URLRequest(url: baseURL)

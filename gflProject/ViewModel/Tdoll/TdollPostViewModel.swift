@@ -11,14 +11,35 @@ class TdollPostViewModel: ObservableObject {
     var alertMessage = ""
     var ErrorType: TdollModel.errorTypes = .NoError
     
-    func postTdoll(_ tdoll: TdollModel.Tdoll) async throws -> Void{
-        try await TdollModel().post(tdoll) { isSuccess, error  in
-            if isSuccess{ self.alertMessage = "Tdoll salva com sucesso"; return }
-            else {
-                self.alertMessage = error.rawValue
-                self.ErrorType = error
-                return
+    func postTdoll(_ tdoll: TdollModel.Tdoll) async -> Void{
+        do{
+            try await TdollModel().post(tdoll) { isSuccess, error  in
+                if isSuccess{ self.alertMessage = "Tdoll salva com sucesso"; return }
+                else {
+                    self.alertMessage = error.rawValue
+                    self.ErrorType = error
+                    return
+                }
             }
+        }
+        catch{
+            print("erro ao realizar post")
+        }
+    }
+    
+    func updateTdoll(id: Int, _ tdoll: TdollModel.Tdoll) async -> Void{
+        do{
+            try await TdollModel().updateTdoll(id, tdoll, completion: { isSuccess, error in
+                if isSuccess{ self.alertMessage = "Tdoll atualizada com sucesso"; return }
+                else {
+                    self.alertMessage = error.rawValue
+                    self.ErrorType = error
+                    return
+                }
+            })
+        }
+        catch{
+            print("error ao realizar update")
         }
     }
 }
