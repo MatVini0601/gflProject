@@ -75,16 +75,23 @@ class TdollModel{
         return tdollList
     }
     
+    func deleteTdoll(_ id: Int, completion: @escaping (_ deleted: Bool) -> Void){
+        guard let request = setRequest(method: "DELETE", string: "http://localhost:3000/tdoll/\(id)") else { return }
+            URLSession.shared.dataTask(with: request) { _, _, error in
+                error != nil ? completion(true) : completion(false)
+            }
+    }
+    
     func getTdollByType(type: Tdoll.TdollType) async throws -> [Tdoll]? {
         guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls/type/\(type.rawValue)") else { return nil }
         guard let tdollList = try? await getData(with: request) else { return nil }
         return tdollList
     }
     
-    func getTdollById(_ id: Int) async throws -> [Tdoll]? {
+    func getTdollById(_ id: Int) async throws -> Tdoll? {
         guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls/\(id)") else { return nil }
-        guard let tdollList = try? await getData(with: request) else { return [] }
-        return tdollList
+        guard let tdollList = try? await getData(with: request) else { return nil }
+        return tdollList.first
     }
     
     func updateTdoll(_ id: Int, _ tdoll: Tdoll,  completion: @escaping (_ isSuccess: Bool,_ error: errorTypes) -> Void) async throws{

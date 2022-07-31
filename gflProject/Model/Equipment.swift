@@ -54,10 +54,23 @@ class EquipmentModel{
         completion(true, .NoError)
     }
     
+    func deleteEquipment(_ id: Int, completion: @escaping (_ deleted: Bool) -> Void){
+        guard let request = setRequest(method: "Delete", string: "http://localhost:3000/equipments/\(id)") else { return }
+        URLSession.shared.dataTask(with: request, completionHandler: { _, _, error in
+            error != nil ? completion(true) : completion(false)
+        })
+    }
+    
     func getEquipments() async  throws -> [Equipment]? {
         guard let request = setRequest(method: "GET", string: "http://localhost:3000/equipments") else { return nil }
         guard let equipmentList = try? await getData(with: request) else { return nil }
         return equipmentList
+    }
+    
+    func getEquipmentById(_ id: Int) async throws -> Equipment?{
+        guard let request = setRequest(method: "GET", string: "http://localhost:3000/equipments/\(id)") else { return nil }
+        guard let equipment = try? await getData(with: request) else { return nil }
+        return equipment.first
     }
     
     func search(_ search: String) async throws -> [Equipment]? {
@@ -66,9 +79,15 @@ class EquipmentModel{
         return equipmentList
     }
     
+    func getByType(_ type: Equipment.EquipmentType) async throws -> [Equipment]?{
+        guard let request = setRequest(method: "GET", string: "http://localhost:3000/equipments/type/\(type.rawValue)") else { return nil }
+        guard let equipList = try? await getData(with: request) else { return nil }
+        return equipList
+    }
+    
     
     // MARK: Métodos auxiliares
-    func setRequest(method: String, string url: String) -> URLRequest?{
+    private func setRequest(method: String, string url: String) -> URLRequest?{
         guard let baseURL = URL(string: url) else { return nil}
         var request = URLRequest(url: baseURL)
         request.httpMethod = method
@@ -77,13 +96,13 @@ class EquipmentModel{
         return request
     }
 
-    func getData(with request: URLRequest) async throws -> [Equipment]?{
+    private func getData(with request: URLRequest) async throws -> [Equipment]?{
         let (data, _) = try await URLSession.shared.data(for: request)
         guard let equipmentList = try? JSONDecoder().decode([Equipment].self, from: data) else { return [] }
         return equipmentList
     }
     
-    func validateEquipment(_ equipment: Equipment) -> ErrorTypes{
+    private func validateEquipment(_ equipment: Equipment) -> ErrorTypes{
         if equipment.image.isEmpty || equipment.name.isEmpty { return .RequiredFieldsEmpty }
         return .NoError
     }
