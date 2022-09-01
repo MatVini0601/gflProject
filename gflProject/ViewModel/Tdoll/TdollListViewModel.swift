@@ -10,12 +10,10 @@ import SwiftUI
 
 class TdollListViewModel: ObservableObject{
     @Published var tdollsList: [TdollModel.Tdoll] = []
-//    @Published var searchedTdollsList: [TdollModel.Tdoll] = []
     
     func getData() async throws -> Void{
         do{
-            guard let tdolls = try? await TdollModel().getTdolls()
-            else{ print("TdollListViewModel: failed at getting data from the server)"); return}
+            guard let tdolls = try? await TdollModel().getTdolls() else { return }
             DispatchQueue.main.async{
                 self.tdollsList = tdolls
             }

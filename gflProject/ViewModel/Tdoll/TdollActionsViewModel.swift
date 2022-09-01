@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TdollPostViewModel: ObservableObject {
+class TdollActionsViewModel: ObservableObject {
     var alertMessage = ""
     var ErrorType: TdollModel.errorTypes = .NoError
     
@@ -32,6 +32,7 @@ class TdollPostViewModel: ObservableObject {
             try await TdollModel().updateTdoll(id, tdoll, completion: { isSuccess, error in
                 if isSuccess{ self.alertMessage = "Tdoll atualizada com sucesso"; return }
                 else {
+                    debugPrint("Erro ao atualizar")
                     self.alertMessage = error.rawValue
                     self.ErrorType = error
                     return
@@ -41,5 +42,10 @@ class TdollPostViewModel: ObservableObject {
         catch{
             print("error ao realizar update")
         }
+    }
+    
+    func getTdoll(id: Int) async -> TdollModel.Tdoll?{
+        guard let tdoll = try? await TdollModel().getTdollById(id) else { return nil }
+        return tdoll
     }
 }
