@@ -19,6 +19,12 @@
 		C72AA939284A948F00CFBB8D /* TdollCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AA938284A948F00CFBB8D /* TdollCard.swift */; };
 		C72AA93B284A94A400CFBB8D /* EquipmentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AA93A284A94A400CFBB8D /* EquipmentCard.swift */; };
 		C72AA93D284A951400CFBB8D /* Tdoll.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AA93C284A951400CFBB8D /* Tdoll.swift */; };
+		C73C9EFC28B1374300A9FC43 /* TdollForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C9EFB28B1374300A9FC43 /* TdollForm.swift */; };
+		C73C9EFE28B137E600A9FC43 /* PostButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C9EFD28B137E600A9FC43 /* PostButton.swift */; };
+		C73C9F0028B13BD400A9FC43 /* AsyncImagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C9EFF28B13BD400A9FC43 /* AsyncImagePreview.swift */; };
+		C775371F28AFDC8100E27327 /* TdollDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C775371E28AFDC8100E27327 /* TdollDetails.swift */; };
+		C775372228B00D3C00E27327 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C775372128B00D3C00E27327 /* Colors.swift */; };
+		C799388C28B8005D00EE6212 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C799388B28B8005D00EE6212 /* NavigationView.swift */; };
 		C7C866A4284E78B6002DAE24 /* TdollListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C866A3284E78B6002DAE24 /* TdollListViewModel.swift */; };
 		C7CA7779284A9A4200E70BD8 /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CA7778284A9A4200E70BD8 /* Equipment.swift */; };
 		C7CA777B284A9BAC00E70BD8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CA777A284A9BAC00E70BD8 /* User.swift */; };
@@ -27,7 +33,7 @@
 		C7DDADA62857E95000BDC8EC /* EquipmentsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDADA52857E95000BDC8EC /* EquipmentsHome.swift */; };
 		C7DDADA82857EA4300BDC8EC /* EquipmentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDADA72857EA4300BDC8EC /* EquipmentListViewModel.swift */; };
 		C7E8D8EA285FA7C200D89CB9 /* TdollPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E8D8E9285FA7C200D89CB9 /* TdollPost.swift */; };
-		C7E8D8EE285FA85200D89CB9 /* TdollPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E8D8ED285FA85200D89CB9 /* TdollPostViewModel.swift */; };
+		C7E8D8EE285FA85200D89CB9 /* TdollActionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E8D8ED285FA85200D89CB9 /* TdollActionsViewModel.swift */; };
 		C7E8D8F1285FBB3700D89CB9 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E8D8F0285FBB3700D89CB9 /* TopBar.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +51,12 @@
 		C72AA938284A948F00CFBB8D /* TdollCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollCard.swift; sourceTree = "<group>"; };
 		C72AA93A284A94A400CFBB8D /* EquipmentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentCard.swift; sourceTree = "<group>"; };
 		C72AA93C284A951400CFBB8D /* Tdoll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tdoll.swift; sourceTree = "<group>"; };
+		C73C9EFB28B1374300A9FC43 /* TdollForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollForm.swift; sourceTree = "<group>"; };
+		C73C9EFD28B137E600A9FC43 /* PostButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostButton.swift; sourceTree = "<group>"; };
+		C73C9EFF28B13BD400A9FC43 /* AsyncImagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImagePreview.swift; sourceTree = "<group>"; };
+		C775371E28AFDC8100E27327 /* TdollDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollDetails.swift; sourceTree = "<group>"; };
+		C775372128B00D3C00E27327 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		C799388B28B8005D00EE6212 /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
 		C7C866A3284E78B6002DAE24 /* TdollListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollListViewModel.swift; sourceTree = "<group>"; };
 		C7CA7778284A9A4200E70BD8 /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
 		C7CA777A284A9BAC00E70BD8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -53,7 +65,7 @@
 		C7DDADA52857E95000BDC8EC /* EquipmentsHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentsHome.swift; sourceTree = "<group>"; };
 		C7DDADA72857EA4300BDC8EC /* EquipmentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentListViewModel.swift; sourceTree = "<group>"; };
 		C7E8D8E9285FA7C200D89CB9 /* TdollPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollPost.swift; sourceTree = "<group>"; };
-		C7E8D8ED285FA85200D89CB9 /* TdollPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollPostViewModel.swift; sourceTree = "<group>"; };
+		C7E8D8ED285FA85200D89CB9 /* TdollActionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollActionsViewModel.swift; sourceTree = "<group>"; };
 		C7E8D8F0285FBB3700D89CB9 /* TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +103,7 @@
 				C72AA924284A7EBF00CFBB8D /* ViewModel */,
 				C72AA923284A7EBA00CFBB8D /* View */,
 				C72AA922284A7EB400CFBB8D /* Model */,
+				C775372028B00D2100E27327 /* res */,
 				C72AA914284A7E6B00CFBB8D /* gflProjectApp.swift */,
 				C72AA916284A7E6B00CFBB8D /* ContentView.swift */,
 				C72AA918284A7E6D00CFBB8D /* Assets.xcassets */,
@@ -216,10 +229,30 @@
 			path = List;
 			sourceTree = "<group>";
 		};
+		C73C9EFA28B136B300A9FC43 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C73C9EFB28B1374300A9FC43 /* TdollForm.swift */,
+				C73C9EFD28B137E600A9FC43 /* PostButton.swift */,
+				C73C9EFF28B13BD400A9FC43 /* AsyncImagePreview.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		C775372028B00D2100E27327 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				C73C9EFA28B136B300A9FC43 /* Components */,
+				C775372128B00D3C00E27327 /* Colors.swift */,
+			);
+			path = res;
+			sourceTree = "<group>";
+		};
 		C779B26F287A400700EAB2A0 /* Post */ = {
 			isa = PBXGroup;
 			children = (
 				C7E8D8E9285FA7C200D89CB9 /* TdollPost.swift */,
+				C775371E28AFDC8100E27327 /* TdollDetails.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -236,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				C7DDADA22857E70800BDC8EC /* Animations */,
+				C799388B28B8005D00EE6212 /* NavigationView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -252,7 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				C7C866A3284E78B6002DAE24 /* TdollListViewModel.swift */,
-				C7E8D8ED285FA85200D89CB9 /* TdollPostViewModel.swift */,
+				C7E8D8ED285FA85200D89CB9 /* TdollActionsViewModel.swift */,
 			);
 			path = Tdoll;
 			sourceTree = "<group>";
@@ -344,25 +378,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				C72AA937284A947300CFBB8D /* EquipmentList.swift in Sources */,
+				C775372228B00D3C00E27327 /* Colors.swift in Sources */,
 				C72AA93B284A94A400CFBB8D /* EquipmentCard.swift in Sources */,
 				C7CA7779284A9A4200E70BD8 /* Equipment.swift in Sources */,
 				C7E8D8EA285FA7C200D89CB9 /* TdollPost.swift in Sources */,
-				C7E8D8EE285FA85200D89CB9 /* TdollPostViewModel.swift in Sources */,
+				C7E8D8EE285FA85200D89CB9 /* TdollActionsViewModel.swift in Sources */,
 				C7DDADA62857E95000BDC8EC /* EquipmentsHome.swift in Sources */,
 				C72AA92F284A7F6D00CFBB8D /* TdollList.swift in Sources */,
 				C7E8D8F1285FBB3700D89CB9 /* TopBar.swift in Sources */,
 				C72AA93D284A951400CFBB8D /* Tdoll.swift in Sources */,
 				C72AA917284A7E6B00CFBB8D /* ContentView.swift in Sources */,
+				C73C9F0028B13BD400A9FC43 /* AsyncImagePreview.swift in Sources */,
 				C7DDADA82857EA4300BDC8EC /* EquipmentListViewModel.swift in Sources */,
 				C72AA939284A948F00CFBB8D /* TdollCard.swift in Sources */,
+				C73C9EFE28B137E600A9FC43 /* PostButton.swift in Sources */,
 				C72AA915284A7E6B00CFBB8D /* gflProjectApp.swift in Sources */,
+				C73C9EFC28B1374300A9FC43 /* TdollForm.swift in Sources */,
 				C7CA777B284A9BAC00E70BD8 /* User.swift in Sources */,
 				C7C866A4284E78B6002DAE24 /* TdollListViewModel.swift in Sources */,
 				C72AA927284A7EE400CFBB8D /* NavigationBar.swift in Sources */,
 				C72AA932284A80B700CFBB8D /* Home.swift in Sources */,
 				C7DDADA42857E72400BDC8EC /* Ripple.swift in Sources */,
+				C799388C28B8005D00EE6212 /* NavigationView.swift in Sources */,
 				C72AA92A284A7F0F00CFBB8D /* TabBar.swift in Sources */,
 				C7DDADA02857D73900BDC8EC /* Search.swift in Sources */,
+				C775371F28AFDC8100E27327 /* TdollDetails.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
