@@ -9,12 +9,13 @@ import Foundation
     
 
 class TdollModel{
-    struct Tdoll: Decodable{
-    let id: Int
-    let image: String
-    let name: String
-    let manufacturer: String
-    let type: TdollType
+    struct Tdoll: Decodable, Hashable{
+        let id: Int
+        let image: String
+        let name: String
+        let tier: Int
+        let manufacturer: String
+        let type: TdollType
 
         enum TdollType: String, Decodable{
             case AR = "AR"
@@ -51,6 +52,7 @@ class TdollModel{
             "id" : tdoll.id,
             "image": tdoll.image,
             "name": tdoll.name,
+            "tier": tdoll.tier,
             "manufacturer": tdoll.manufacturer,
             "type": tdoll.type.rawValue
         ]
@@ -110,7 +112,8 @@ class TdollModel{
             "image": tdoll.image,
             "name": tdoll.name,
             "manufacturer": tdoll.manufacturer,
-            "type": tdoll.type.rawValue
+            "type": tdoll.type.rawValue,
+            "tier": tdoll.tier
         ]
         
         guard var request = setRequest(method: "PATCH", string: "http://localhost:3000/tdolls/\(id)") else { return }
