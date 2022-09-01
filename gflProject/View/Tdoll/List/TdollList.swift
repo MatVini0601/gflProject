@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TdollList: View {
     @EnvironmentObject var tdollsListVM: TdollListViewModel
+    @EnvironmentObject var tdollActionVM: TdollActionsViewModel
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
     var collumnsIphone: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
@@ -20,16 +21,18 @@ struct TdollList: View {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVGrid(columns: horizontalSizeClass! == .regular ? collumnsIpad: collumnsIphone, spacing: 20) {
                     ForEach(tdollsListVM.tdollsList, id: \.id){ item in
-                        TdollCard(tdolls: item)
+                        NavigationLink(
+                            destination: TdollDetails(id: item.id, tdoll: item).environmentObject(TdollActionsViewModel())) {
+                            TdollCard(tdolls: item)
+                        }
                     }
                 }
                 .padding()
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .task {
-                // Also reload data after post new tdoll
-                try! await tdollsListVM.getData()
+                try? await tdollsListVM.getData()
             }
-            .frame(maxWidth: .infinity)
         }
     }
 }
@@ -38,5 +41,6 @@ struct TdollList_Previews: PreviewProvider {
     static var previews: some View {
         TdollList()
             .environmentObject(TdollListViewModel())
+            .environmentObject(TdollActionsViewModel())
     }
 }

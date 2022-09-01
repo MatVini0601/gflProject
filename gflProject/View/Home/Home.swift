@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-struct Home: View {
-    @State var search: String = ""
-    
+struct Home: View {    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             TopBar()

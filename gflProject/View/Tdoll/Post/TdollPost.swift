@@ -8,164 +8,26 @@
 import SwiftUI
 
 struct TdollPost: View {
-    @EnvironmentObject var tdollPostVM: TdollPostViewModel
-    @Environment(\.presentationMode) var presentation
+    @State var tdoll: TdollModel.Tdoll?
     
-    @State private var imageURL = ""
-    @State private var ID = ""
-    @State private var name = ""
-    @State private var manufacturer = ""
-    @State private var type: TdollModel.Tdoll.TdollType = .AR
-    
-    @State private var isShowing = false
-    @State private var isPerformingPost = false
-    
-    @State private var typeSelection: TdollModel.Tdoll.TdollType = .AR
-    @State private var manufacturerSelection = "16LAB"
-
-    private var types: [TdollModel.Tdoll.TdollType] = [.AR, .HG, .MG, .RF , .SMG, .SG]
-    private var manufacturers: [String] = ["16LAB", "IOP"]
-    
-    //Styles
-    private let LightGray = Color("LightGray")
-    private let Background = Color("Background")
-    private let Placeholder = Color("Placeholder")
-    private let lightYellow = Color("LightYellow")
+    //Parametro vem da View TdollDetail ou TopBar
+    @State var isEditing: Bool
     
     var body: some View {
         ScrollView(showsIndicators: false){
             VStack(spacing: 0){
-                AsyncImage(url: URL(string: imageURL))
-                    .frame(width: 200, height: 300)
-                    .cornerRadius(16)
-                    .padding(.bottom, 20)
-                
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(.gray.opacity(0.7))
-                    .frame(height: 1)
-                    .padding()
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Image URL")
-                    TextField("URL", text: $imageURL)
-                        .padding(8)
-                        .background(
-                            Rectangle()
-                                .fill(LightGray)
-                                .cornerRadius(8)
-                        )
-                    
-                    HStack(alignment: .top, spacing: 8) {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Tdoll ID")
-                            TextField("ID", text: $ID)
-                                .padding(8)
-                                .background(
-                                    Rectangle()
-                                        .fill(LightGray)
-                                        .cornerRadius(8)
-                                )
-                        }
-                        
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Tdoll name")
-                            TextField("name", text: $name)
-                                .padding(8)
-                                .background(
-                                    Rectangle()
-                                        .fill(LightGray)
-                                        .cornerRadius(8)
-                                )
-                        }
-                    }
-                    
-                    HStack(alignment: .top, spacing: 8) {
-                        VStack(alignment: .leading){
-                            Text("Tdoll manufacturer")
-                            Picker("Tdoll manufacturers", selection: self.$manufacturerSelection){
-                                ForEach(self.manufacturers ,id: \.self){
-                                    Text($0)
-                                        .frame(maxWidth: .infinity)
-                                }
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding(4)
-                            .background(
-                                Rectangle()
-                                    .fill(LightGray)
-                                    .cornerRadius(8)
-                            )
-                        }
-                        
-                        VStack(alignment: .leading){
-                            Text("Tdoll type")
-                            Picker("Tdoll types", selection: self.$typeSelection){
-                                ForEach(self.types ,id: \.self){
-                                    Text($0.rawValue)
-                                        .frame(maxWidth: .infinity)
-                                }
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding(4)
-                            .background(
-                                Rectangle()
-                                    .fill(LightGray)
-                                    .cornerRadius(8)
-                            )
-                        }
-                    }
-                }
-                .padding()
-                
-                Button {
-                    isPerformingPost = true
-                    
-                    let tdoll = TdollModel.Tdoll.init(
-                        id: Int(self.ID) ?? 0,
-                        image: self.imageURL,
-                        name: self.name,
-                        manufacturer: self.manufacturerSelection,
-                        type: self.typeSelection)
-                    Task{
-                        try await tdollPostVM.postTdoll(tdoll)
-                        isPerformingPost = false
-                        isShowing = true
-                    }
-                } label: {
-                    ZStack{
-                        Text("Salvar")
-                            .opacity(isPerformingPost ? 0 : 1)
-                        if isPerformingPost {
-                            ProgressView()
-                                .frame(maxWidth: .infinity)
-                        }
-                    }
-                }
-                .disabled(isPerformingPost)
-                .foregroundColor(.black)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(lightYellow)
-                .padding()
-                .alert("Alert", isPresented: $isShowing, actions: {
-                    Button("OK", role: .cancel) {
-                        if tdollPostVM.ErrorType == .NoError { presentation.wrappedValue.dismiss() }
-                    }
-                }, message: {
-                    Text(tdollPostVM.alertMessage)
-                })
+                TdollForm(tdoll: tdoll ?? nil, isEditing: isEditing)
+                    .environmentObject(TdollActionsViewModel())
             }
             .frame(maxWidth: .infinity, alignment: .top)
         }
-        .background(Background)
-        .navigationTitle("Tdoll")
+        .navigationTitle("Nova Tdoll")
         .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct TdollPost_Previews: PreviewProvider {
     static var previews: some View {
-        TdollPost()
-            .environmentObject(TdollPostViewModel())
+        TdollPost(isEditing: false)
     }
 }

@@ -25,6 +25,8 @@ struct TdollCard: View {
                 .font(.custom("Montserrat", size: 18))
                 .padding(.vertical, 5)
                 .padding(.horizontal, 10)
+                .lineLimit(1)
+                .frame(maxWidth: 200, alignment: .leading)
         }
         .background(
             RoundedRectangle(cornerRadius: 16)
@@ -43,6 +45,7 @@ struct TdollCard_Previews: PreviewProvider {
                     id: 56,
                     image: "https://iopwiki.com/images/a/a2/ST_AR-15_S.png",
                     name: "ST AR-15",
+                    tier: 4,
                     manufacturer: "16LAB",
                     type: .AR)
         )

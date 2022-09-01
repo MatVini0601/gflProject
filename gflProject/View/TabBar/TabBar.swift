@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
-
 struct TabBar: View {
+    
+    init(){
+        UITabBar().barTintColor = UIColor(Color.red)
+    }
+    
     var body: some View {
         TabView{
             NavigationView{
@@ -22,6 +26,7 @@ struct TabBar: View {
                 }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .navigationBarTitleTextColor(.Extra)
     }
 }
 

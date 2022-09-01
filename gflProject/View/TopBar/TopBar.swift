@@ -15,7 +15,7 @@ struct TopBar: View {
                 Text("Tdoll Index")
                     .font(.custom("Roboto", size: 32))
                 Spacer()
-                NavigationLink(destination: TdollPost().environmentObject(TdollPostViewModel())) {
+                NavigationLink(destination: TdollPost(isEditing: false).environmentObject(TdollActionsViewModel())) {
                     Text("+")
                         .font(.custom("Roboto", size: 32))
                 }
