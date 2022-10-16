@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TdollPost: View {
-    @State var tdoll: TdollModel.Tdoll?
+    @State var tdoll: Tdoll?
     
     //Parametro vem da View TdollDetail ou TopBar
     @State var isEditing: Bool

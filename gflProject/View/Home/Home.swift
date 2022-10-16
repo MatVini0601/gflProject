@@ -16,19 +16,6 @@ struct Home: View {
         }
         .navigationTitle("")
         .navigationBarHidden(true)
-//        HStack(spacing: 20){
-//            Text("Search")
-//                .task {
-//                    let res = try? await TdollModel().getTdollByType(type: .AR)
-//                    print(res)
-//                }
-//
-//            Text("Get")
-//                .task {
-//                    let tdolls = try? await TdollModel().getTdolls()
-//                    print(tdolls!)
-//                }
-//        }
     }
 }
 

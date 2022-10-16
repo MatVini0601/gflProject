@@ -15,12 +15,12 @@ struct TdollForm: View {
     @State var tdollImage: String = ""
     @State var tdollTier: Int = 2
     @State var tdollManufacturer: String = ""
-    @State var tdollType: TdollModel.Tdoll.TdollType = .AR
+    @State var tdollType: Tdoll.TdollType = .AR
     
-    @State var tdoll: TdollModel.Tdoll?
+    @State var tdoll: Tdoll?
     @State var isEditing: Bool = false
     
-    init(tdoll: TdollModel.Tdoll?, isEditing: Bool){
+    init(tdoll: Tdoll?, isEditing: Bool){
         guard let tdoll = tdoll else {
             return
         }
@@ -28,11 +28,11 @@ struct TdollForm: View {
         _isEditing = State(initialValue: isEditing)
     }
     
-    @State private var typeSelection: TdollModel.Tdoll.TdollType = .AR
+    @State private var typeSelection: Tdoll.TdollType = .AR
     @State private var manufacturerSelection = "16LAB"
     @State private var tierSelection = 2
     
-    private var types: [TdollModel.Tdoll.TdollType] = [.AR, .HG, .MG, .RF , .SMG, .SG]
+    private var types: [Tdoll.TdollType] = [.AR, .HG, .MG, .RF , .SMG, .SG]
     private var manufacturers: [String] = ["16LAB", "IOP"]
     private var tiers: [Int] = [2, 3, 4, 5, 6, 7]
     
@@ -134,13 +134,16 @@ struct TdollForm: View {
                 }
             }
             PostButton(
-                tdoll: TdollModel.Tdoll.init(
+                tdoll: Tdoll.init(
                             id: Int(tdollId) ?? 0,
                             image: tdollImage,
                             name: tdollName,
                             tier: tierSelection,
                             manufacturer: manufacturerSelection,
-                            type: typeSelection), isEditing: self.isEditing)
+                            type: typeSelection,
+                            hasMindUpgrade: nil,
+                            gallery_id: nil,
+                            tags: nil), isEditing: self.isEditing)
             .environmentObject(TdollActionsViewModel())
         }
         .padding()
@@ -157,13 +160,16 @@ struct TdollForm: View {
 
 struct Form_Previews: PreviewProvider {
     static var previews: some View {
-        TdollForm(tdoll: TdollModel.Tdoll(
+        TdollForm(tdoll: Tdoll(
             id: 56,
             image: "https://iopwiki.com/images/a/a2/ST_AR-15_S.png",
             name: "ST AR-15",
             tier: 4,
             manufacturer: "16LAB",
-            type: .AR), isEditing: false)
+            type: .AR,
+            hasMindUpgrade: nil,
+            gallery_id: nil,
+            tags: nil), isEditing: false)
             .environmentObject(TdollActionsViewModel())
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TdollCard: View {
-    @State var tdolls: TdollModel.Tdoll
+    @State var tdolls: Tdoll
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             AsyncImage(url: URL(string: tdolls.image)!){image in
@@ -39,15 +39,15 @@ struct TdollCard: View {
 
 struct TdollCard_Previews: PreviewProvider {
     static var previews: some View {
-        TdollCard(
-            tdolls:
-                TdollModel.Tdoll(
-                    id: 56,
-                    image: "https://iopwiki.com/images/a/a2/ST_AR-15_S.png",
-                    name: "ST AR-15",
-                    tier: 4,
-                    manufacturer: "16LAB",
-                    type: .AR)
-        )
+        TdollForm(tdoll: Tdoll(
+            id: 56,
+            image: "https://iopwiki.com/images/a/a2/ST_AR-15_S.png",
+            name: "ST AR-15",
+            tier: 4,
+            manufacturer: "16LAB",
+            type: .AR,
+            hasMindUpgrade: nil,
+            gallery_id: nil,
+            tags: nil), isEditing: false)
     }
 }

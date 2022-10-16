@@ -17,11 +17,11 @@ struct PostButton: View {
     var name: String?
     var tier: Int?
     var manufacturerSelection: String?
-    var typeSelection: TdollModel.Tdoll.TdollType?
+    var typeSelection: Tdoll.TdollType?
     
     var isEditing: Bool
     
-    init(tdoll: TdollModel.Tdoll, isEditing: Bool){
+    init(tdoll: Tdoll, isEditing: Bool){
         self.ID = String(tdoll.id)
         self.imageURL = tdoll.image
         self.name = tdoll.name
@@ -39,13 +39,17 @@ struct PostButton: View {
             isPerformingPost = true
             
             // Recupera os dados do formulário
-            let tdoll = TdollModel.Tdoll.init(
+            let tdoll = Tdoll.init(
                 id: Int(self.ID ?? "0") ?? 0,
                 image: self.imageURL ?? "",
                 name: self.name ?? "",
                 tier: self.tier ?? 1,
                 manufacturer: self.manufacturerSelection ?? "16LAB",
-                type: self.typeSelection ?? .AR)
+                type: self.typeSelection ?? .AR,
+                hasMindUpgrade: nil,
+                gallery_id: nil,
+                tags: nil
+                )
             
             
             // Executa a ação baseado na intenção do usuário
@@ -81,13 +85,16 @@ struct PostButton: View {
 struct PostButton_Previews: PreviewProvider {
     static var previews: some View {
         PostButton(tdoll:
-            TdollModel.Tdoll(
+                Tdoll(
                 id: 56,
                 image: "https://iopwiki.com/images/a/a2/ST_AR-15_S.png",
                 name: "ST AR-15",
                 tier: 4,
                 manufacturer: "16LAB",
-                type: .AR), isEditing: false
+                type: .AR,
+                hasMindUpgrade: nil,
+                gallery_id: nil,
+                tags: nil), isEditing: false
         )
         .environmentObject(TdollActionsViewModel())
     }

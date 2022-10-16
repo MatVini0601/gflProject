@@ -13,20 +13,10 @@ struct TabBar: View {
     }
     
     var body: some View {
-        TabView{
-            NavigationView{
-                Home()
-            }
-                .tabItem{
-                    Label("Tdolls", systemImage: "magnifyingglass")
-                }
-            EquipmentsHome()
-                .tabItem {
-                    Label("Equipamentos", systemImage: "magnifyingglass")
-                }
+        NavigationView{
+            Home()
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .navigationBarTitleTextColor(.Extra)
     }
 }
 

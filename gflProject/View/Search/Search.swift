@@ -29,7 +29,6 @@ struct Search: View {
                                 if search.isEmpty { try! await equipmentListVM.getData() }
                                 else{ try! await equipmentListVM.getSearch(search) }
                             }
-                            
                         }
                     })
                     .padding()
