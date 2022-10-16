@@ -9,23 +9,8 @@ import Foundation
     
 
 class TdollModel{
-    struct Tdoll: Decodable, Hashable{
-        let id: Int
-        let image: String
-        let name: String
-        let tier: Int
-        let manufacturer: String
-        let type: TdollType
-
-        enum TdollType: String, Decodable{
-            case AR = "AR"
-            case SMG = "SMG"
-            case SG = "SG"
-            case MG = "MG"
-            case HG = "HG"
-            case RF = "RF"
-        }
-    }
+    
+    private let baseURL = "http://localhost:3000/tdolls"
     
     enum errorTypes: String{
         case RequiredFieldEmpty = "Campos Obrigatorios não preenchidos"
@@ -46,7 +31,7 @@ class TdollModel{
             default: break
         }
         
-        guard var request = setRequest(method: "POST", string: "http://localhost:3000/tdolls") else { return }
+        guard var request = setRequest(method: "POST", string: baseURL) else { return }
         
         let tdoll: [String: Any] = [
             "id" : tdoll.id,
@@ -56,7 +41,6 @@ class TdollModel{
             "manufacturer": tdoll.manufacturer,
             "type": tdoll.type.rawValue
         ]
-        
         let body = try? JSONSerialization.data(withJSONObject: tdoll, options: [])
         request.httpBody = body
         
@@ -66,32 +50,32 @@ class TdollModel{
     }
     
     func getTdolls() async  throws -> [Tdoll]? {
-        guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls") else { return nil }
+        guard let request = setRequest(method: "GET", string: baseURL) else { return nil }
         guard let tdollList = try? await getData(with: request) else { return nil }
         return tdollList
     }
     
     func search(_ search: String) async throws -> [Tdoll]? {
-        guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls/search?name=\(search)") else { return nil }
+        guard let request = setRequest(method: "GET", string: "\(baseURL)/search?name=\(search)") else { return nil }
         guard let tdollList = try? await getData(with: request) else { return nil }
         return tdollList
     }
     
     func deleteTdoll(_ id: Int, completion: @escaping (_ deleted: Bool) -> Void){
-        guard let request = setRequest(method: "DELETE", string: "http://localhost:3000/tdoll/\(id)") else { return }
+        guard let request = setRequest(method: "DELETE", string: "\(baseURL)\(id)") else { return }
             URLSession.shared.dataTask(with: request) { _, _, error in
                 error != nil ? completion(true) : completion(false)
             }
     }
     
     func getTdollByType(type: Tdoll.TdollType) async throws -> [Tdoll]? {
-        guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls/type/\(type.rawValue)") else { return nil }
+        guard let request = setRequest(method: "GET", string: "\(baseURL)/type/\(type.rawValue)") else { return nil }
         guard let tdollList = try? await getData(with: request) else { return nil }
         return tdollList
     }
     
     func getTdollById(_ id: Int) async throws -> Tdoll? {
-        guard let request = setRequest(method: "GET", string: "http://localhost:3000/tdolls/\(id)") else { return nil }
+        guard let request = setRequest(method: "GET", string: "\(baseURL)\(id)") else { return nil }
         guard let tdollList = try? await getData(with: request) else { return nil }
         return tdollList.first
     }
@@ -116,7 +100,7 @@ class TdollModel{
             "tier": tdoll.tier
         ]
         
-        guard var request = setRequest(method: "PATCH", string: "http://localhost:3000/tdolls/\(id)") else { return }
+        guard var request = setRequest(method: "PATCH", string: "\(baseURL)\(id)") else { return }
         
         let body = try? JSONSerialization.data(withJSONObject: updateTdoll, options: [])
         request.httpBody = body
@@ -124,6 +108,30 @@ class TdollModel{
         let (_, response) = try await URLSession.shared.data(for: request)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { completion(false, .ServerError); return }
         completion(true, .NoError)
+    }
+    
+    func getTdollGallery(_ id: Int) async throws -> [galleryLinks]?{
+        guard let request = setRequest(method: "GET", string: "\(baseURL)/gallery/\(id)") else { return nil }
+        let (data, _) = try await URLSession.shared.data(for: request)
+        do{
+            let gallery = try JSONDecoder().decode([galleryLinks].self, from: data)
+            return gallery
+        }catch let error as DecodingError{
+            print(error.localizedDescription)
+        }
+        return nil
+    }
+    
+    func getTdollTags(_ id: Int) async throws -> [tdollTags]?{
+        guard let request = setRequest(method: "GET", string: "\(baseURL)/tags/\(id)") else { return nil }
+        let (data, _) = try await URLSession.shared.data(for: request)
+        do{
+            let gallery = try JSONDecoder().decode([tdollTags].self, from: data)
+            return gallery
+        }catch let error as DecodingError{
+            print(error.localizedDescription)
+        }
+        return nil
     }
     
     
@@ -139,14 +147,28 @@ class TdollModel{
 
     private func getData(with request: URLRequest) async throws -> [Tdoll]?{
         let (data, _) = try await URLSession.shared.data(for: request)
-        guard let tdollsList = try? JSONDecoder().decode([Tdoll].self, from: data) else { return [] }
-        return tdollsList
+        do{
+            let tdollsList = try JSONDecoder().decode([Tdoll].self, from: data)
+            return tdollsList
+        }catch let error as DecodingError{
+            print(error.localizedDescription)
+        }
+        return []
     }
     
     private func validateTdoll(_ tdoll: Tdoll) -> errorTypes {
         if tdoll.id < 0 { return .NegativeID }
         if tdoll.image.isEmpty || tdoll.name.isEmpty || tdoll.manufacturer.isEmpty { return .RequiredFieldEmpty }
         return .NoError
+    }
+    
+    struct galleryLinks: Decodable, Hashable{
+        let image_link: String
+        let model_name: String
+    }
+    
+    struct tdollTags: Decodable, Hashable{
+        let tagName: String
     }
 }
 
