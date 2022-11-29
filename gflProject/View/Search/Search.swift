@@ -11,7 +11,7 @@ struct Search: View {
     @EnvironmentObject private var tdollsListVM: TdollListViewModel
     @EnvironmentObject private var equipmentListVM: EquipmentListViewModel
     @State var search: String = ""
-    var type: String
+    
     private let LightGray = Color("LightGray")
     private let lightYellow = Color("LightYellow")
     
@@ -21,14 +21,8 @@ struct Search: View {
                 TextField("Search", text: $search)
                     .onChange(of: self.search, perform: { newValue in
                         Task{
-                            if(type == "Tdoll"){
-                                if search.isEmpty { try! await tdollsListVM.getData() }
-                                else{ try! await tdollsListVM.getSearch(search) }
-                            }
-                            else{
-                                if search.isEmpty { try! await equipmentListVM.getData() }
-                                else{ try! await equipmentListVM.getSearch(search) }
-                            }
+                            if search.isEmpty { try! await tdollsListVM.getData() }
+                            else{ try! await tdollsListVM.getSearch(search) }
                         }
                     })
                     .padding()
@@ -54,7 +48,7 @@ struct Search: View {
 
 struct Search_Previews: PreviewProvider {
     static var previews: some View {
-        Search(type: "Tdoll")
+        Search()
             .environmentObject(TdollListViewModel())
             .environmentObject(EquipmentListViewModel())
     }

@@ -17,7 +17,7 @@ struct TdollList: View {
     
     var body: some View {
         VStack{
-            Search(type: "Tdoll")
+            Search()
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVGrid(columns: horizontalSizeClass! == .regular ? collumnsIpad: collumnsIphone, spacing: 20) {
                     ForEach(tdollsListVM.tdollsList, id: \.id){ item in

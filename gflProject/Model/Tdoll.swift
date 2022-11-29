@@ -16,22 +16,27 @@ class TdollModel{
         case RequiredFieldEmpty = "Campos Obrigatorios não preenchidos"
         case NegativeID = "Campo ID não pode ser menor que zero"
         case ServerError = "Servidor: Erro ao tentar salvar nova Tdoll"
+        case DeleteError = "Erro ao deletar Tdoll"
         case NoError
     }
-
+    
     func post(_ tdoll: Tdoll, completion: @escaping (_ isSuccess: Bool,_ error: errorTypes) -> Void) async throws{
         let validation = validateTdoll(tdoll)
+        
         switch(validation){
-            case .RequiredFieldEmpty:
-                completion(false, .RequiredFieldEmpty)
-                return
-            case .NegativeID:
-                completion(false, .NegativeID)
-                return
-            default: break
+        case .RequiredFieldEmpty:
+            completion(false, .RequiredFieldEmpty)
+            return
+        case .NegativeID:
+            completion(false, .NegativeID)
+            return
+        default: break
         }
         
-        guard var request = setRequest(method: "POST", string: baseURL) else { return }
+        guard var request = setRequest(method: "POST", string: baseURL) else {
+            completion(false, .ServerError)
+            return
+        }
         
         let tdoll: [String: Any] = [
             "id" : tdoll.id,
@@ -39,8 +44,10 @@ class TdollModel{
             "name": tdoll.name,
             "tier": tdoll.tier,
             "manufacturer": tdoll.manufacturer,
-            "type": tdoll.type.rawValue
+            "type": tdoll.type.rawValue,
+            "hasMindUpgrade": tdoll.hasMindUpgrade ?? 0
         ]
+        
         let body = try? JSONSerialization.data(withJSONObject: tdoll, options: [])
         request.httpBody = body
         
@@ -56,26 +63,34 @@ class TdollModel{
     }
     
     func search(_ search: String) async throws -> [Tdoll]? {
-        guard let request = setRequest(method: "GET", string: "\(baseURL)/search?name=\(search)") else { return nil }
+        let endpoint = "\(baseURL)/search?name=\(search)"
+        guard let request = setRequest(method: "GET", string: endpoint) else { return nil }
         guard let tdollList = try? await getData(with: request) else { return nil }
         return tdollList
     }
     
-    func deleteTdoll(_ id: Int, completion: @escaping (_ deleted: Bool) -> Void){
-        guard let request = setRequest(method: "DELETE", string: "\(baseURL)\(id)") else { return }
-            URLSession.shared.dataTask(with: request) { _, _, error in
-                error != nil ? completion(true) : completion(false)
-            }
+    func deleteTdoll(_ id: Int, completion: @escaping (_ deleted: Bool, _ error: errorTypes) -> Void){
+        let endpoint = "\(baseURL)/\(id)"
+        guard let request = setRequest(method: "DELETE", string: endpoint) else {
+            completion(false, .ServerError)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { _, _, error in
+            error == nil ? completion(true, .NoError) : completion(false, .DeleteError)
+        }.resume()
     }
     
     func getTdollByType(type: Tdoll.TdollType) async throws -> [Tdoll]? {
-        guard let request = setRequest(method: "GET", string: "\(baseURL)/type/\(type.rawValue)") else { return nil }
+        let endpoint = "\(baseURL)/type/\(type.rawValue)"
+        guard let request = setRequest(method: "GET", string: endpoint) else { return nil }
         guard let tdollList = try? await getData(with: request) else { return nil }
         return tdollList
     }
     
     func getTdollById(_ id: Int) async throws -> Tdoll? {
-        guard let request = setRequest(method: "GET", string: "\(baseURL)\(id)") else { return nil }
+        let endpoint = "\(baseURL)\(id)"
+        guard let request = setRequest(method: "GET", string: endpoint) else { return nil }
         guard let tdollList = try? await getData(with: request) else { return nil }
         return tdollList.first
     }
@@ -83,13 +98,13 @@ class TdollModel{
     func updateTdoll(_ id: Int, _ tdoll: Tdoll,  completion: @escaping (_ isSuccess: Bool,_ error: errorTypes) -> Void) async throws{
         let validation = validateTdoll(tdoll)
         switch(validation){
-            case .RequiredFieldEmpty:
-                completion(false, .RequiredFieldEmpty)
-                return
-            case .NegativeID:
-                completion(false, .NegativeID)
-                return
-            default: break
+        case .RequiredFieldEmpty:
+            completion(false, .RequiredFieldEmpty)
+            return
+        case .NegativeID:
+            completion(false, .NegativeID)
+            return
+        default: break
         }
         
         let updateTdoll: [String: Any] = [
@@ -109,42 +124,18 @@ class TdollModel{
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { completion(false, .ServerError); return }
         completion(true, .NoError)
     }
-    
-    func getTdollGallery(_ id: Int) async throws -> [galleryLinks]?{
-        guard let request = setRequest(method: "GET", string: "\(baseURL)/gallery/\(id)") else { return nil }
-        let (data, _) = try await URLSession.shared.data(for: request)
-        do{
-            let gallery = try JSONDecoder().decode([galleryLinks].self, from: data)
-            return gallery
-        }catch let error as DecodingError{
-            print(error.localizedDescription)
-        }
-        return nil
-    }
-    
-    func getTdollTags(_ id: Int) async throws -> [tdollTags]?{
-        guard let request = setRequest(method: "GET", string: "\(baseURL)/tags/\(id)") else { return nil }
-        let (data, _) = try await URLSession.shared.data(for: request)
-        do{
-            let gallery = try JSONDecoder().decode([tdollTags].self, from: data)
-            return gallery
-        }catch let error as DecodingError{
-            print(error.localizedDescription)
-        }
-        return nil
-    }
-    
+
     
     // MARK: Métodos auxiliares
     private func setRequest(method: String, string url: String) -> URLRequest?{
-        guard let baseURL = URL(string: url) else { return nil}
-        var request = URLRequest(url: baseURL)
+        guard let EPurl = URL(string: url) else { return nil }
+        var request = URLRequest(url: EPurl)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         return request
     }
-
+    
     private func getData(with request: URLRequest) async throws -> [Tdoll]?{
         let (data, _) = try await URLSession.shared.data(for: request)
         do{
@@ -160,15 +151,6 @@ class TdollModel{
         if tdoll.id < 0 { return .NegativeID }
         if tdoll.image.isEmpty || tdoll.name.isEmpty || tdoll.manufacturer.isEmpty { return .RequiredFieldEmpty }
         return .NoError
-    }
-    
-    struct galleryLinks: Decodable, Hashable{
-        let image_link: String
-        let model_name: String
-    }
-    
-    struct tdollTags: Decodable, Hashable{
-        let tagName: String
     }
 }
 

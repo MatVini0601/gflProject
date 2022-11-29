@@ -46,9 +46,7 @@ struct PostButton: View {
                 tier: self.tier ?? 1,
                 manufacturer: self.manufacturerSelection ?? "16LAB",
                 type: self.typeSelection ?? .AR,
-                hasMindUpgrade: nil,
-                gallery_id: nil,
-                tags: nil
+                hasMindUpgrade: nil
                 )
             
             
@@ -92,9 +90,7 @@ struct PostButton_Previews: PreviewProvider {
                 tier: 4,
                 manufacturer: "16LAB",
                 type: .AR,
-                hasMindUpgrade: nil,
-                gallery_id: nil,
-                tags: nil), isEditing: false
+                hasMindUpgrade: nil), isEditing: false
         )
         .environmentObject(TdollActionsViewModel())
     }

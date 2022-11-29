@@ -16,6 +16,9 @@ struct TdollForm: View {
     @State var tdollTier: Int = 2
     @State var tdollManufacturer: String = ""
     @State var tdollType: Tdoll.TdollType = .AR
+    @State var hasMindUpgrade: String = "No"
+    @State var gallery_id: Int = 0
+    @State var tags: Int = 0
     
     @State var tdoll: Tdoll?
     @State var isEditing: Bool = false
@@ -26,14 +29,17 @@ struct TdollForm: View {
         }
         _tdoll = State(initialValue: tdoll)
         _isEditing = State(initialValue: isEditing)
+        
     }
     
     @State private var typeSelection: Tdoll.TdollType = .AR
     @State private var manufacturerSelection = "16LAB"
+    @State private var mindUpgradeSelection = "No"
     @State private var tierSelection = 2
     
     private var types: [Tdoll.TdollType] = [.AR, .HG, .MG, .RF , .SMG, .SG]
     private var manufacturers: [String] = ["16LAB", "IOP"]
+    private var mindUpgrades: [String] = ["Yes", "No"]
     private var tiers: [Int] = [2, 3, 4, 5, 6, 7]
     
     var body: some View {
@@ -133,6 +139,42 @@ struct TdollForm: View {
                     )
                 }
             }
+            
+            HStack(alignment: .top, spacing: 8) {
+                VStack(alignment: .leading){
+                    Text("Mind upgrade")
+                    Picker("Mind upgrade", selection: self.$mindUpgradeSelection){
+                        ForEach(self.mindUpgrades ,id: \.self){ item in
+                            Text(String(item)).frame(maxWidth: .infinity)
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(4)
+                    .background(
+                        Rectangle()
+                            .fill(Color.LightGray)
+                            .cornerRadius(8)
+                    )
+                }
+                
+                VStack(alignment: .leading){
+                    Text("Mind upgrade")
+                    Picker("Mind upgrade", selection: self.$mindUpgradeSelection){
+                        ForEach(self.mindUpgrades ,id: \.self){ item in
+                            Text(String(item)).frame(maxWidth: .infinity)
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(4)
+                    .background(
+                        Rectangle()
+                            .fill(Color.LightGray)
+                            .cornerRadius(8)
+                    )
+                }
+
+            }
+            
             PostButton(
                 tdoll: Tdoll.init(
                             id: Int(tdollId) ?? 0,
@@ -141,9 +183,7 @@ struct TdollForm: View {
                             tier: tierSelection,
                             manufacturer: manufacturerSelection,
                             type: typeSelection,
-                            hasMindUpgrade: nil,
-                            gallery_id: nil,
-                            tags: nil), isEditing: self.isEditing)
+                            hasMindUpgrade: nil), isEditing: self.isEditing)
             .environmentObject(TdollActionsViewModel())
         }
         .padding()
@@ -154,6 +194,7 @@ struct TdollForm: View {
             self.tierSelection = tdoll?.tier ?? 2
             self.manufacturerSelection = tdoll?.manufacturer ?? "16LAB"
             self.typeSelection = tdoll?.type ?? .AR
+            self.mindUpgradeSelection = tdoll?.hasMindUpgrade == 0 ? "No" : "Yes"
         }
     }
 }
@@ -167,9 +208,7 @@ struct Form_Previews: PreviewProvider {
             tier: 4,
             manufacturer: "16LAB",
             type: .AR,
-            hasMindUpgrade: nil,
-            gallery_id: nil,
-            tags: nil), isEditing: false)
+            hasMindUpgrade: 1), isEditing: false)
             .environmentObject(TdollActionsViewModel())
     }
 }

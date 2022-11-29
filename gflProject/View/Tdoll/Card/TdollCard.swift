@@ -46,8 +46,6 @@ struct TdollCard_Previews: PreviewProvider {
             tier: 4,
             manufacturer: "16LAB",
             type: .AR,
-            hasMindUpgrade: nil,
-            gallery_id: nil,
-            tags: nil), isEditing: false)
+            hasMindUpgrade: nil), isEditing: false)
     }
 }

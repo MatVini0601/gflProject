@@ -23,6 +23,7 @@ struct TdollPost: View {
         }
         .navigationTitle("Nova Tdoll")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarColor(backgroundColor: Color.white.opacity(0), titleColor: UIColor(Color.lightYellow), blur: .none)
     }
 }
 

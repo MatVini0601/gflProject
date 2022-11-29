@@ -15,8 +15,6 @@ struct Tdoll: Decodable, Hashable{
     let manufacturer: String
     let type: TdollType
     let hasMindUpgrade: Int?
-    var gallery_id: Int?
-    var tags: Int?
 
     enum TdollType: String, Decodable{
         case AR = "AR"

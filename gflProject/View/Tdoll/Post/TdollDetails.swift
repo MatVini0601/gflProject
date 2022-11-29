@@ -8,19 +8,20 @@
 import SwiftUI
 
 struct TdollDetails: View {
-    @EnvironmentObject var tdollActionVm: TdollActionsViewModel
+    @EnvironmentObject var tdollActionVM: TdollActionsViewModel
+    @Environment(\.presentationMode) var presentation
     @Namespace var CategoryAnimation
     @State var id: Int?
-    @State var tdoll: Tdoll?
+    @State var tdoll: Tdoll
     @State var tags: Int?
-    @State var gallery: [TdollModel.galleryLinks]?
-    @State var tdollTags: [TdollModel.tdollTags]?
-    @State var shouldUpdate: Bool = false
+    @State var gallery: [Gallery.galleryData]?
+    @State var tdollTags: [Tags.tagData]?
     @State var active: Bool = false
     
-    
     @State var skinSelection = "Default Skin"
-    @State var skinLink = "https://iopwiki.com/images/2/2e/ST_AR-15.png"
+    @State var skinLink: String?
+    
+    @State private var isShowing = false
     
     //game minimum tdoll tier
     var tier = 2
@@ -28,33 +29,30 @@ struct TdollDetails: View {
     var body: some View {
         ScrollView{
             VStack(alignment: .leading, spacing: 8) {
-                AsyncImage(url: URL(string: tdoll?.image ?? "")){ image in
+                AsyncImage(url: URL(string: tdoll.image)){ image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(maxWidth: .infinity, alignment: .top)
-                    
                 }placeholder: {
                     ProgressView()
+                        .frame(width: 300, height: 400, alignment: .topLeading)
                 }
                 .frame(alignment: .top)
             
                 
                 VStack{
                     VStack(alignment: .leading) {
-                        Text(tdoll?.name ?? "Tdoll Detail")
-//                            .font(.custom("Montserrat", size: 36))
+                        Text(tdoll.name)
                             .font(.title).bold()
-                            .foregroundColor(.white)
                             .bold()
                     
                         HStack(alignment: .top){
-                            if(tdoll?.tier == 7){
+                            if(tdoll.tier == 7){
                                 Text("Extra")
                                     .foregroundColor(Color.Extra)
                                     .font(.custom("Montserrat", size: 18))
                             }else{
-                                ForEach(0..<tdoll!.tier, id: \.self){_ in
+                                ForEach(0..<tdoll.tier, id: \.self){_ in
                                     Text(String("★"))
                                         .foregroundColor(Color.lightYellow)
                                         .font(.custom("Montserrat", size: 18))
@@ -62,25 +60,30 @@ struct TdollDetails: View {
                             }
                         }
                         
-                        HStack(alignment: .top){
-                            ForEach(tdollTags ?? [], id: \.self){tag in
-                                Text(tag.tagName)
-                                    .foregroundColor(Color.white)
-                                    .padding(.vertical, 4)
-                                    .padding(.horizontal, 8)
-                                    .background{
-                                        Capsule().stroke(lineWidth: 1).fill(Color.LightGray)
-                                            Capsule()
-                                            .fill(Color.Gray)
-                                        }
+                        if tdollActionVM.tdollHasTags(id!){
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(alignment: .top){
+                                    ForEach(tdollTags!, id: \.self){tag in
+                                        Text(tag.tagName)
+                                            .padding(.vertical, 4)
+                                            .padding(.horizontal, 8)
+                                            .lineLimit(1)
+                                            .background{
+                                                Capsule().stroke(lineWidth: 1).fill(Color.LightGray)
+                                                    Capsule()
+                                                    .fill(Color.Gray)
+                                                }
+                                    }
+                                    .contentShape(Capsule())
+                                }
+                                .padding([.trailing])
+                                .padding([.top, .bottom], 2)
                             }
-                            .contentShape(Capsule())
                         }
                     }
-                    .padding()
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
+                .padding([.leading])
                     
                 RoundedRectangle(cornerRadius: 8)
                     .fill(.gray.opacity(0.7))
@@ -90,81 +93,100 @@ struct TdollDetails: View {
                 VStack{
                     Text("Manufacturer")
                         .font(.custom("Montserrat", size: 24))
-                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity, alignment: .topLeading)
                     
                     HStack{
-                        Image(tdoll!.manufacturer)
+                        Image(tdoll.manufacturer)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100, height: 150, alignment: .center)
                         
                         Spacer()
                         
-                        Text("16LAB Research Institute[1] (also rendered “16Lab”) is the company created by Persicaria in 2057, and one of IOP's first-party manufacturer and R&D partners in the Tactical Doll market.")
-                            .foregroundColor(.white)
+                        if tdoll.manufacturer == "16LAB"{
+                            Text(tdollActionVM.getLAB())
+                                
+                        }else if tdoll.manufacturer == "IOP"{
+                            Text(tdollActionVM.getIOP())
+                        }else{
+                            Text(tdollActionVM.getUnknow())
+                        }
                     }
                     .frame(maxWidth: .infinity)
                 }
                 .padding()
                 
-                VStack{
-                    Text("Gallery")
-                        .font(.custom("Montserrat", size: 24))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, alignment: .topLeading)
-                    
-                    HStack{
-                        ForEach(gallery ?? [], id: \.self){ item in
-                            Text(item.model_name)
-                                .foregroundColor(Color.white)
-                                .padding(.vertical, 4)
-                                .padding(.horizontal, 8)
-                                .background{
-                                    Capsule().stroke(lineWidth: 1).fill(Color.LightGray)
-                                    if skinSelection == item.model_name{
-                                        Capsule()
-                                            .fill(Color.lightYellow)
-                                            .matchedGeometryEffect(id: "SKIN", in: CategoryAnimation)
-                                    }else{
-                                        Capsule()
-                                            .fill(Color.Gray)
-                                    }
-                                    }
-                                .lineLimit(1)
-                                .onTapGesture {
-                                    withAnimation{skinSelection = item.model_name}
-                                    skinLink = item.image_link
+                if tdollActionVM.tdollHasGallery(id!){
+                    VStack{
+                        Text("Gallery")
+                            .font(.custom("Montserrat", size: 24))
+                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                        ScrollView(.horizontal, showsIndicators: false){
+                            HStack{
+                                ForEach(gallery!, id: \.self){ item in
+                                    Text(item.model_name)
+                                        .padding(.vertical, 4)
+                                        .padding(.horizontal, 8)
+                                        .background{
+                                            Capsule().stroke(lineWidth: 1).fill(Color.LightGray)
+                                            if skinSelection == item.model_name{
+                                                Capsule()
+                                                    .fill(Color.lightYellow)
+                                                    .matchedGeometryEffect(id: "SKIN", in: CategoryAnimation)
+                                            }
+                                        }
+                                        .lineLimit(1)
+                                        .onTapGesture {
+                                            withAnimation{skinSelection = item.model_name}
+                                            skinLink = item.image_link
+                                        }
                                 }
-                        }
-                        .contentShape(Capsule())
-                    }
-                    
-                    AsyncImage(url: URL(string: skinLink)){image in
-                        image
-                            .resizable()
-                            .scaledToFill()
+                                .contentShape(Capsule())
+                            }
                             .padding()
-                    }placeholder: {
-                        ProgressView()
-                            .frame(width: 200, height: 400, alignment: .leading)
-                            .scaledToFill()
+                        }
+                        
+                        AsyncImage(url: URL(string: skinLink!)){image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                        }placeholder: {
+                            ProgressView()
+                                .frame(width: 200, height: 400, alignment: .leading)
+                                .scaledToFill()
+                        }
                     }
+                    .padding(.horizontal)
                 }
-                .padding()
             }
         }
+        .foregroundColor(.white)
         .background(Color.Gray)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .task {
-            gallery = await tdollActionVm.getTdollGallery(id: tdoll!.id)
-            tdollTags = await tdollActionVm.getTdollTags(id: tdoll!.id)
-            if shouldUpdate{
-                tdoll = await tdollActionVm.getTdoll(id: tdoll!.id)
+            gallery = await tdollActionVM.getTdollGallery(id: tdoll.id)
+            tdollTags = await tdollActionVM.getTdollTags(id: tdoll.id)
+            skinLink = gallery?.first?.image_link
+        }
+        .toolbar {
+            ToolbarItem {
+                Button {
+                        isShowing = true
+                } label: {
+                    Image(systemName: "trash.circle")
+                        .foregroundColor(.lightYellow)
+                }
+                .alert("Alert", isPresented: $isShowing, actions: {
+                    Button("Voltar", role: .cancel) { }
+                    Button("Delete", role: .destructive) {
+                        Task{ await self.tdollActionVM.deleteTdoll(id: tdoll.id) }
+                        if tdollActionVM.ErrorType == .NoError { presentation.wrappedValue.dismiss() }
+                    }
+                }, message: {
+                    Text("Essa ação é irreversivel, quer continuar?")
+                })
             }
         }
-        .edgesIgnoringSafeArea(.all)
-        .navigationBarColor(backgroundColor: Color(red: 255, green: 255, blue: 255, opacity: 0), titleColor: UIColor(Color.lightYellow))
+        .navigationBarColor(backgroundColor: Color.white.opacity(0.1), titleColor: UIColor(Color.lightYellow), blur: UIBlurEffect(style: .dark))
     }
 }
 
@@ -177,9 +199,7 @@ struct TdollDetails_Previews: PreviewProvider {
             tier: 4,
             manufacturer: "16LAB",
             type: .AR,
-            hasMindUpgrade: nil,
-            gallery_id: 57,
-            tags: 57))
+            hasMindUpgrade: nil))
             .environmentObject(TdollActionsViewModel())
     }
 }
