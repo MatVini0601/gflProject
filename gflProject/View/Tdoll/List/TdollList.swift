@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TdollList: View {
     @EnvironmentObject var tdollsListVM: TdollListViewModel
-    @EnvironmentObject var tdollActionVM: TdollActionsViewModel
+    @EnvironmentObject var tdollDetailsVM: TdollDetailsViewModel
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
     var collumnsIphone: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
@@ -19,11 +19,11 @@ struct TdollList: View {
         VStack{
             Search()
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVGrid(columns: horizontalSizeClass! == .regular ? collumnsIpad: collumnsIphone, spacing: 20) {
-                    ForEach(tdollsListVM.tdollsList, id: \.id){ item in
+                LazyVGrid(columns: horizontalSizeClass == .regular ? collumnsIpad: collumnsIphone, spacing: 20) {
+                    ForEach(tdollsListVM.tdollsList, id: \.id){ doll in
                         NavigationLink(
-                            destination: TdollDetails(id: item.id, tdoll: item).environmentObject(TdollActionsViewModel())) {
-                            TdollCard(tdolls: item)
+                            destination: TdollDetails(tdoll: doll).environmentObject(TdollDetailsViewModel())) {
+                            TdollCard(tdolls: doll)
                         }
                     }
                 }
@@ -41,6 +41,6 @@ struct TdollList_Previews: PreviewProvider {
     static var previews: some View {
         TdollList()
             .environmentObject(TdollListViewModel())
-            .environmentObject(TdollActionsViewModel())
+            .environmentObject(TdollDetailsViewModel())
     }
 }

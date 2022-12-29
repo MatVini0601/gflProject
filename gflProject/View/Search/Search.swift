@@ -12,9 +12,6 @@ struct Search: View {
     @EnvironmentObject private var equipmentListVM: EquipmentListViewModel
     @State var search: String = ""
     
-    private let LightGray = Color("LightGray")
-    private let lightYellow = Color("LightYellow")
-    
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             HStack{
@@ -35,11 +32,11 @@ struct Search: View {
                     Image(systemName: "magnifyingglass")
                 }
                 .padding()
-                .background(lightYellow)
+                .background(Color.lightYellow)
                 .foregroundColor(.black)
                 .cornerRadius(16)
             }
-            .background(LightGray)
+            .background(Color.LightGray)
             .cornerRadius(16)
         }
         .padding(.horizontal)
