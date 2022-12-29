@@ -16,6 +16,7 @@ struct Tdoll: Decodable, Hashable{
     let type: TdollType
     let hasMindUpgrade: Int?
 
+
     enum TdollType: String, Decodable{
         case AR = "AR"
         case SMG = "SMG"

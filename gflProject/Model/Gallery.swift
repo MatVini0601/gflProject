@@ -30,7 +30,7 @@ class Gallery {
         return nil
     }
     
-    func hasGallery(_ id: Int) -> Bool {
+    func hasGallery() -> Bool {
         return gallerySize > 0
     }
     

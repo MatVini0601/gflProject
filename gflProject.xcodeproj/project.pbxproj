@@ -23,6 +23,9 @@
 		C73C9EFC28B1374300A9FC43 /* TdollForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C9EFB28B1374300A9FC43 /* TdollForm.swift */; };
 		C73C9EFE28B137E600A9FC43 /* PostButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C9EFD28B137E600A9FC43 /* PostButton.swift */; };
 		C73C9F0028B13BD400A9FC43 /* AsyncImagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C9EFF28B13BD400A9FC43 /* AsyncImagePreview.swift */; };
+		C74CB8BA293FDEA7004CD751 /* TdollDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74CB8B9293FDEA7004CD751 /* TdollDetailsViewModel.swift */; };
+		C74CB8BE294A3C79004CD751 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74CB8BD294A3C79004CD751 /* GalleryView.swift */; };
+		C74CB8C0294A3CD6004CD751 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74CB8BF294A3CD6004CD751 /* GalleryViewModel.swift */; };
 		C768FB1028C651CD002AD646 /* TdollStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C768FB0F28C651CD002AD646 /* TdollStruct.swift */; };
 		C768FB1428C6BC4C002AD646 /* NavigationBarModifiersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C768FB1328C6BC4C002AD646 /* NavigationBarModifiersView.swift */; };
 		C775371F28AFDC8100E27327 /* TdollDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C775371E28AFDC8100E27327 /* TdollDetails.swift */; };
@@ -56,6 +59,9 @@
 		C73C9EFB28B1374300A9FC43 /* TdollForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollForm.swift; sourceTree = "<group>"; };
 		C73C9EFD28B137E600A9FC43 /* PostButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostButton.swift; sourceTree = "<group>"; };
 		C73C9EFF28B13BD400A9FC43 /* AsyncImagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImagePreview.swift; sourceTree = "<group>"; };
+		C74CB8B9293FDEA7004CD751 /* TdollDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollDetailsViewModel.swift; sourceTree = "<group>"; };
+		C74CB8BD294A3C79004CD751 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
+		C74CB8BF294A3CD6004CD751 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		C768FB0F28C651CD002AD646 /* TdollStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollStruct.swift; sourceTree = "<group>"; };
 		C768FB1328C6BC4C002AD646 /* NavigationBarModifiersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifiersView.swift; sourceTree = "<group>"; };
 		C775371E28AFDC8100E27327 /* TdollDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TdollDetails.swift; sourceTree = "<group>"; };
@@ -144,6 +150,7 @@
 				C72AA92B284A7F4800CFBB8D /* Tdoll */,
 				C72AA928284A7EFF00CFBB8D /* TabBar */,
 				C72AA925284A7EC900CFBB8D /* NavigationBar */,
+				C74CB8BD294A3C79004CD751 /* GalleryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -153,6 +160,7 @@
 			children = (
 				C7E8D8EC285FA82E00D89CB9 /* Equipment */,
 				C7E8D8EB285FA82700D89CB9 /* Tdoll */,
+				C74CB8BF294A3CD6004CD751 /* GalleryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -274,6 +282,7 @@
 			children = (
 				C7C866A3284E78B6002DAE24 /* TdollListViewModel.swift */,
 				C7E8D8ED285FA85200D89CB9 /* TdollActionsViewModel.swift */,
+				C74CB8B9293FDEA7004CD751 /* TdollDetailsViewModel.swift */,
 			);
 			path = Tdoll;
 			sourceTree = "<group>";
@@ -365,8 +374,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C706D7452936C4EF005C283B /* NetworkManager.swift in Sources */,
+				C74CB8C0294A3CD6004CD751 /* GalleryViewModel.swift in Sources */,
 				C775372228B00D3C00E27327 /* Colors.swift in Sources */,
 				C7CA7779284A9A4200E70BD8 /* Equipment.swift in Sources */,
+				C74CB8BA293FDEA7004CD751 /* TdollDetailsViewModel.swift in Sources */,
 				C7E8D8EA285FA7C200D89CB9 /* TdollPost.swift in Sources */,
 				C7E8D8EE285FA85200D89CB9 /* TdollActionsViewModel.swift in Sources */,
 				C72AA92F284A7F6D00CFBB8D /* TdollList.swift in Sources */,
@@ -386,6 +397,7 @@
 				C706D7432936B588005C283B /* Tags.swift in Sources */,
 				C7C866A4284E78B6002DAE24 /* TdollListViewModel.swift in Sources */,
 				C72AA927284A7EE400CFBB8D /* NavigationBar.swift in Sources */,
+				C74CB8BE294A3C79004CD751 /* GalleryView.swift in Sources */,
 				C72AA932284A80B700CFBB8D /* Home.swift in Sources */,
 				C7DDADA42857E72400BDC8EC /* Ripple.swift in Sources */,
 				C72AA92A284A7F0F00CFBB8D /* TabBar.swift in Sources */,

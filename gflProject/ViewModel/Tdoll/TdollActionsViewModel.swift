@@ -16,12 +16,12 @@ class TdollActionsViewModel: ObservableObject {
     private let IOP = "Important Operations Prototype Manufacturing Company, or IOP, is a R&D and manufacturing company specializing in Tactical Dolls, directed by Havier Witkin. IOP is the world leader in Tactical Doll production since World War Three thanks to 16LAB's groundbreaking technological research, and the main supplier of workforce for Griffin & Kryuger PMC."
     private let Unknown = "This doll is not originally from the game. it`s a character from a collab so it`s either don`t have a manufacturer or we don`t know who they are."
     var alertMessage = ""
-    var ErrorType: TdollModel.errorTypes = .NoError
+    var ErrorType: NetworkManager.errorTypes = .NoError
 
     //MARK: Tdoll
     func postTdoll(_ tdoll: Tdoll) async -> Void{
         do{
-            try await Model.post(tdoll) { isSuccess, error  in
+            try await NetworkManager.shared.post(tdoll) { isSuccess, error  in
                 if isSuccess{ self.alertMessage = "Tdoll salva com sucesso"; return }
                 else {
                     self.alertMessage = error.rawValue
@@ -34,10 +34,9 @@ class TdollActionsViewModel: ObservableObject {
             print("erro ao realizar post")
         }
     }
-    
     func updateTdoll(id: Int, _ tdoll: Tdoll) async -> Void{
         do{
-            try await Model.updateTdoll(id, tdoll, completion: { isSuccess, error in
+            try await NetworkManager.shared.updateTdoll(id, tdoll, completion: { isSuccess, error in
                 if isSuccess{ self.alertMessage = "Tdoll atualizada com sucesso"; return }
                 else {
                     debugPrint("Erro ao atualizar")
@@ -51,14 +50,12 @@ class TdollActionsViewModel: ObservableObject {
             print("error ao realizar update")
         }
     }
-    
     func getTdoll(id: Int) async -> Tdoll?{
-        guard let tdoll = try? await Model.getTdollById(id) else { return nil }
+        guard let tdoll = try? await NetworkManager.shared.getTdollById(id) else { return nil }
         return tdoll
     }
-    
     func deleteTdoll(id: Int) async {
-        Model.deleteTdoll(id) { deleted, error in
+        NetworkManager.shared.deleteTdoll(id) { deleted, error in
             if deleted { self.alertMessage = "Tdoll excluída com sucesso"; return}
             else {
                 self.alertMessage = error.rawValue
@@ -73,9 +70,8 @@ class TdollActionsViewModel: ObservableObject {
         guard let gallery = try? await GalleryModel.getGallery(id) else { return [] }
         return gallery
     }
-    
-    func tdollHasGallery(_ id: Int) -> Bool{
-       return GalleryModel.hasGallery(id)
+    func tdollHasGallery() -> Bool{
+       return GalleryModel.hasGallery()
     }
     
     //MARK: Tags
@@ -83,16 +79,13 @@ class TdollActionsViewModel: ObservableObject {
         guard let tags = try? await TagModel.getTags(id) else { return [] }
         return tags
     }
-    
-    func tdollHasTags(_ id: Int) -> Bool{
-        return TagModel.hasTags(id)
+    func tdollHasTags() -> Bool{
+        return TagModel.hasTags()
     }
     
     
     //MARK: Aux
     func getLAB() -> String{ return self.LAB }
-    
     func getIOP() -> String{ return self.IOP }
-    
     func getUnknow() -> String { return self.Unknown }
 }

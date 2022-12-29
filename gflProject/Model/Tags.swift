@@ -30,7 +30,7 @@ class Tags {
         return nil
     }
     
-    func hasTags(_ id: Int) -> Bool {
+    func hasTags() -> Bool {
         return tagsSize > 0
     }
     
