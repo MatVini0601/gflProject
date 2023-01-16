@@ -15,9 +15,10 @@ struct TdollDetails: View {
     @State var tdollTags: [Tags.tagData]?
     
     @State private var isShowingAlert = false
+    @State private var LoadingData = true
     
     //Gradient blur
-    let gradient = LinearGradient(
+    private let gradient = LinearGradient(
         gradient: Gradient(stops: [
             .init(color: .Gray, location: 0),
             .init(color: .Gray.opacity(0.5), location: 0.1),
@@ -40,8 +41,12 @@ struct TdollDetails: View {
                 }
                 .frame(alignment: .leading)
                 .overlay { gradient }
+                
+                
 
                 VStack{
+                    TagsView()
+                    
                     VStack(alignment: .leading){
                         Text(tdoll.name)
                             .font(.title).bold()
@@ -90,7 +95,8 @@ struct TdollDetails: View {
                         }
                         .frame(maxWidth: .infinity)
                     }
-                    GalleryView(ID: tdoll.id).environmentObject(GalleryViewModel())
+                    
+                    GalleryView()
                 }
                 .padding(10)
                 .padding([.top], 0)
@@ -118,6 +124,11 @@ struct TdollDetails: View {
             }
         }
         .navigationBarColor(backgroundColor: Color.white.opacity(0.1), titleColor: UIColor(Color.lightYellow), blur: UIBlurEffect(style: .dark))
+        .task {
+            await ViewModel.getTdollTags(id: tdoll.id)
+            await ViewModel.getTdollGallery(id: tdoll.id)
+            self.LoadingData = false
+        }
     }
 }
 
