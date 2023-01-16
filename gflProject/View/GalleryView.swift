@@ -9,13 +9,7 @@ import SwiftUI
 
 struct GalleryView: View {
     @Namespace var TdollDetails
-    @EnvironmentObject var ViewModel: GalleryViewModel
-    @State var ID: Int
-    @State var refresh = false
-    
-    init(ID: Int, ViewModel: GalleryViewModel = GalleryViewModel()) {
-        self.ID = ID
-    }
+    @EnvironmentObject var ViewModel: TdollDetailsViewModel
     
     var body: some View {
         if ViewModel.tdollHasGallery(){
@@ -58,17 +52,7 @@ struct GalleryView: View {
                     }
             }
             .padding(.horizontal)
-            .task {
-                await ViewModel.getTdollGallery(id: self.ID)
-                refresh = true
-            }
         }
     }
 }
 
-struct GalleryView_Previews: PreviewProvider  {
-    static var previews: some View {
-        GalleryView(ID: 57)
-            .environmentObject(GalleryViewModel())
-    }
-}
