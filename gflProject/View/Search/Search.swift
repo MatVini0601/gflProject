@@ -11,35 +11,47 @@ struct Search: View {
     @EnvironmentObject private var tdollsListVM: TdollListViewModel
     @EnvironmentObject private var equipmentListVM: EquipmentListViewModel
     @State var search: String = ""
+    @State private var isHidden = true
+    @FocusState private var isFocused: Bool
     
     var body: some View {
-        HStack(alignment: .top, spacing: 0) {
+        HStack(alignment: .top, spacing: 8) {
+            Spacer()
             HStack{
-                TextField("Search", text: $search)
-                    .onChange(of: self.search, perform: { newValue in
-                        Task{
-                            if search.isEmpty { try! await tdollsListVM.getData() }
-                            else{ try! await tdollsListVM.getSearch(search) }
-                        }
-                    })
-                    .padding()
+                if !isHidden{
+                    TextField("Search", text: $search)
+                        .onChange(of: self.search, perform: { _ in
+                            Task{
+                                if search.isEmpty { try! await tdollsListVM.getData() }
+                                else{ try! await tdollsListVM.getSearch(search) }
+                            }
+                        })
+                        .onChange(of: isFocused, perform: { _ in
+                            if !isFocused {
+                                isHidden.toggle()
+                                search = ""
+                            }
+                        })
+                        .focused($isFocused)
+                        .padding(.horizontal)
+                }
                 
                 Button {
-                    Task{
-                        try! await tdollsListVM.getSearch(search)
-                    }
+                    isHidden.toggle()
                 } label: {
                     Image(systemName: "magnifyingglass")
+                        .resizable()
+                        .frame(width: 12, height: 12)
                 }
-                .padding()
+                .padding(12)
                 .background(Color.lightYellow)
                 .foregroundColor(.black)
-                .cornerRadius(16)
+                .cornerRadius(6)
             }
             .background(Color.LightGray)
+            .frame(maxHeight: 36)
             .cornerRadius(16)
         }
-        .padding(.horizontal)
     }
 }
 

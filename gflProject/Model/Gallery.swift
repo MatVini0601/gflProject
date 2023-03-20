@@ -25,7 +25,7 @@ class Gallery {
             gallerySize = gallery.count
             return gallery
         }catch let error as DecodingError{
-            print(error.localizedDescription)
+            print(error.localizedDescription + "Gallery")
         }
         return nil
     }
@@ -35,9 +35,9 @@ class Gallery {
     }
     
     //MARK: AUX
-    private func setRequest(method: String, string url: String) -> URLRequest?{
-        guard let EPurl = URL(string: url) else { return nil }
-        var request = URLRequest(url: EPurl)
+    private func setRequest(method: String, string urlString: String) -> URLRequest?{
+        guard let url = URL(string: urlString) else { return nil }
+        var request = URLRequest(url: url)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         

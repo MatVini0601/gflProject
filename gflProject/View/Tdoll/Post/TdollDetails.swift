@@ -123,7 +123,11 @@ struct TdollDetails: View {
                 })
             }
         }
-        .navigationBarColor(backgroundColor: Color.white.opacity(0.1), titleColor: UIColor(Color.lightYellow), blur: UIBlurEffect(style: .dark))
+        .navigationBarColor(
+            backgroundColor: Color.black.opacity(0.1),
+            titleColor: UIColor(Color.lightYellow),
+            blur: UIBlurEffect(style: .dark)
+        )
         .task {
             await ViewModel.getTdollTags(id: tdoll.id)
             await ViewModel.getTdollGallery(id: tdoll.id)

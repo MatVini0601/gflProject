@@ -7,15 +7,23 @@
 
 import SwiftUI
 
-struct Home: View {    
+struct Home: View {
+    private var environment = TdollListViewModel()
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            TopBar()
-            TdollList()
-                .environmentObject(TdollListViewModel())
+        NavigationView {
+            VStack(alignment: .leading, spacing: 0) {
+                TopBar().environmentObject(environment)
+                TdollList().environmentObject(environment)
+            }
+            .navigationTitle("Tdolls")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle("")
-        .navigationBarHidden(true)
+        .navigationBarColor(
+            backgroundColor: Color.white.opacity(1),
+            titleColor: UIColor(Color.lightYellow),
+            blur: UIBlurEffect(style: .dark)
+        )
     }
 }
 

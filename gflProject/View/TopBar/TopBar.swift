@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct TopBar: View {
+    @EnvironmentObject var tdollsListVM: TdollListViewModel
     var body: some View {
         VStack{
-            HStack{
-                Spacer()
-                Text("Tdoll Index")
-                    .font(.custom("Roboto", size: 32))
-                Spacer()
-                NavigationLink(destination: TdollPost(isEditing: false).environmentObject(TdollActionsViewModel())) {
-                    Text("+")
-                        .font(.custom("Roboto", size: 32))
-                }
+            HStack(alignment: .top){
+                Image("Bombardment_Fairy_chibi")
+                    .resizable()
+                    .frame(maxWidth: 36, maxHeight: 36)
+                
+                
+                Search()
             }
-            .padding()
         }
+        .frame(maxWidth: .infinity)
+        .padding()
     }
 }
 

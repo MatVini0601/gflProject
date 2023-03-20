@@ -7,27 +7,27 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct NavigationBarModifier: ViewModifier {
 
-    var backgroundColor: UIColor?
-    var titleColor: UIColor?
-    var blur: UIBlurEffect?
+    private var backgroundColor: UIColor?
+    private var titleColor: UIColor?
+    private var blur: UIBlurEffect?
     
 
     init(backgroundColor: Color, titleColor: UIColor?, blur: UIBlurEffect?) {
         self.backgroundColor = UIColor(backgroundColor)
+        self.titleColor = titleColor
+        self.blur = blur
         
         let coloredAppearance = UINavigationBarAppearance()
         let image = UIImage(systemName: "chevron.backward")?.withTintColor(titleColor ?? .white, renderingMode: .alwaysOriginal)
     
-        coloredAppearance.configureWithTransparentBackground()
-        coloredAppearance.backgroundColor = UIColor(backgroundColor)
-        coloredAppearance.titleTextAttributes = [.foregroundColor: titleColor ?? .white]
-        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: titleColor ?? .white]
+        coloredAppearance.configureWithDefaultBackground()
+        coloredAppearance.backgroundColor = self.backgroundColor
+        coloredAppearance.titleTextAttributes = [.foregroundColor: self.titleColor ?? .white]
+        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: self.titleColor ?? .white]
         coloredAppearance.shadowColor = .clear
-        coloredAppearance.backgroundEffect = blur ?? .none
+        coloredAppearance.backgroundEffect = self.blur ?? .none
         coloredAppearance.setBackIndicatorImage(image, transitionMaskImage: image)
         
         UINavigationBar.appearance().standardAppearance = coloredAppearance
@@ -37,22 +37,22 @@ struct NavigationBarModifier: ViewModifier {
     }
 
     func body(content: Content) -> some View {
-        ZStack{
+        GeometryReader { geometry in
             content
-            VStack {
-                GeometryReader { geometry in
-                    Color(self.backgroundColor ?? .clear)
-                        .frame(height: geometry.safeAreaInsets.top)
-                        .edgesIgnoringSafeArea(.top)
-                    Spacer()
-                }
-            }
+//            ZStack{
+//                VStack {
+//                    Color(self.backgroundColor ?? .clear)
+//                        .frame(height: geometry.safeAreaInsets.top)
+//                        .edgesIgnoringSafeArea(.top)
+//                    Spacer()
+//                }
+//                content
+//            }
         }
     }
 }
 
 extension View {
-
     func navigationBarColor(backgroundColor: Color, titleColor: UIColor?, blur: UIBlurEffect?) -> some View {
         self.modifier(NavigationBarModifier(backgroundColor: backgroundColor, titleColor: titleColor, blur: blur))
     }
