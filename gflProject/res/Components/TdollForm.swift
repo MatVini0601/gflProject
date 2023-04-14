@@ -20,10 +20,10 @@ struct TdollForm: View {
     @State var gallery_id: Int = 0
     @State var tags: Int = 0
     
-    @State var tdoll: Tdoll?
+    @State var tdoll: Tdoll.tdollData?
     @State var isEditing: Bool = false
     
-    init(tdoll: Tdoll?, isEditing: Bool){
+    init(tdoll: Tdoll.tdollData?, isEditing: Bool){
         guard let tdoll = tdoll else {
             return
         }
@@ -38,145 +38,160 @@ struct TdollForm: View {
     @State private var tierSelection = 2
     
     private var types: [Tdoll.TdollType] = [.AR, .HG, .MG, .RF , .SMG, .SG]
-    private var manufacturers: [String] = ["16LAB", "IOP"]
+    private var manufacturers: [String] = ["16LAB", "IOP", "Unknown"]
     private var mindUpgrades: [String] = ["Yes", "No"]
     private var tiers: [Int] = [2, 3, 4, 5, 6, 7]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            
-            AsyncImagePreview(url: $tdollImage)
-            
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Image URL")
-                TextField("URL", text: $tdollImage)
-                    .padding(8)
-                    .background(
-                        Rectangle()
-                            .fill(Color.LightGray)
-                            .cornerRadius(8)
-                    )
-            }
-            
-            HStack(alignment: .top, spacing: 8) {
+        ZStack(alignment: .bottom) {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("ID")
-                    TextField("ID", text: $tdollId)
-                        .padding(8)
-                        .background(
-                            Rectangle()
-                                .fill(Color.LightGray)
-                                .cornerRadius(8)
-                        )
-                }
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Name")
-                    TextField("name", text: $tdollName)
-                        .padding(8)
-                        .background(
-                            Rectangle()
-                                .fill(Color.LightGray)
-                                .cornerRadius(8)
-                        )
-                }
-            }
-            
-            HStack(alignment: .top, spacing: 8) {
-                VStack(alignment: .leading){
-                    Text("Manufacturer").lineLimit(1)
-                    Picker("Tdoll manufacturers", selection: self.$manufacturerSelection){
-                        ForEach(self.manufacturers ,id: \.self){
-                            Text($0)
-                                .frame(maxWidth: .infinity)
+                    
+                    AsyncImagePreview(url: $tdollImage)
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Image URL")
+                        TextField("URL", text: $tdollImage)
+                            .padding(8)
+                            .background(
+                                Rectangle()
+                                    .fill(Color.BackgroundColorList)
+                                    .cornerRadius(8)
+                            )
+                    }
+                    
+                    HStack(alignment: .top, spacing: 8) {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("ID")
+                            TextField("ID", text: $tdollId)
+                                .padding(8)
+                                .background(
+                                    Rectangle()
+                                        .fill(Color.BackgroundColorList)
+                                        .cornerRadius(8)
+                                )
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Name")
+                            TextField("name", text: $tdollName)
+                                .padding(8)
+                                .background(
+                                    Rectangle()
+                                        .fill(Color.BackgroundColorList)
+                                        .cornerRadius(8)
+                                )
                         }
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(4)
-                    .background(
-                        Rectangle()
-                            .fill(Color.LightGray)
-                            .cornerRadius(8)
-                    )
-                }
-                
-                VStack(alignment: .leading){
-                    Text(" Type")
-                    Picker("Tdoll types", selection: self.$typeSelection){
-                        ForEach(self.types ,id: \.self){
-                            Text($0.rawValue)
-                                .frame(maxWidth: .infinity)
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(4)
-                    .background(
-                        Rectangle()
-                            .fill(Color.LightGray)
-                            .cornerRadius(8)
-                    )
-                }
-                
-                VStack(alignment: .leading){
-                    Text("Tier")
-                    Picker("Tdoll tiers", selection: self.$tierSelection){
-                        ForEach(self.tiers ,id: \.self){ item in
-                          if item == 7{
-                                Text(String("Extra"))
-                                    .frame(maxWidth: .infinity)
-                            }else{
-                                Text(String(item))
-                                    .frame(maxWidth: .infinity)
+                    
+                    HStack(alignment: .top, spacing: 8) {
+                        VStack(alignment: .leading){
+                            Text("Manufacturer").lineLimit(1)
+                            Picker("Tdoll manufacturers", selection: self.$manufacturerSelection){
+                                ForEach(self.manufacturers ,id: \.self){
+                                    Text($0)
+                                        .frame(maxWidth: .infinity)
+                                }
                             }
+                            .frame(maxWidth: .infinity)
+                            .padding(4)
+                            .background(
+                                Rectangle()
+                                    .fill(Color.BackgroundColorList)
+                                    .cornerRadius(8)
+                            )
+                        }
+                        
+                        VStack(alignment: .leading){
+                            Text(" Type")
+                            Picker("Tdoll types", selection: self.$typeSelection){
+                                ForEach(self.types ,id: \.self){
+                                    Text($0.rawValue)
+                                        .frame(maxWidth: .infinity)
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(4)
+                            .background(
+                                Rectangle()
+                                    .fill(Color.BackgroundColorList)
+                                    .cornerRadius(8)
+                            )
+                        }
+                        
+                        VStack(alignment: .leading){
+                            Text("Tier")
+                            Picker("Tdoll tiers", selection: self.$tierSelection){
+                                ForEach(self.tiers ,id: \.self){ item in
+                                  if item == 7{
+                                        Text(String("Extra"))
+                                            .frame(maxWidth: .infinity)
+                                    }else{
+                                        Text(String(item))
+                                            .frame(maxWidth: .infinity)
+                                    }
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(4)
+                            .background(
+                                Rectangle()
+                                    .fill(Color.BackgroundColorList)
+                                    .cornerRadius(8)
+                            )
                         }
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(4)
-                    .background(
-                        Rectangle()
-                            .fill(Color.LightGray)
-                            .cornerRadius(8)
-                    )
+                    
+                    HStack(alignment: .top, spacing: 8) {
+                        VStack(alignment: .leading){
+                            Text("Mind upgrade")
+                            Picker("Mind upgrade", selection: self.$mindUpgradeSelection){
+                                ForEach(self.mindUpgrades ,id: \.self){ item in
+                                    Text(String(item)).frame(maxWidth: .infinity)
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(4)
+                            .background(
+                                Rectangle()
+                                    .fill(Color.BackgroundColorList)
+                                    .cornerRadius(8)
+                            )
+                        }
+                        
+                        VStack(alignment: .leading){
+                            Text("Mind upgrade")
+                            Picker("Mind upgrade", selection: self.$mindUpgradeSelection){
+                                ForEach(self.mindUpgrades ,id: \.self){ item in
+                                    Text(String(item)).frame(maxWidth: .infinity)
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(4)
+                            .background(
+                                Rectangle()
+                                    .fill(Color.BackgroundColorList)
+                                    .cornerRadius(8)
+                            )
+                        }
+                    }
+                }
+                .padding()
+                .onAppear(){
+                    self.tdollImage = tdoll?.image ?? ""
+                    self.tdollId = String(tdoll?.id ?? 0)
+                    self.tdollName = tdoll?.name ?? ""
+                    self.tierSelection = tdoll?.tier ?? 2
+                    self.manufacturerSelection = tdoll?.manufacturer ?? "16LAB"
+                    self.typeSelection = tdoll?.type ?? .AR
+                    self.mindUpgradeSelection = tdoll?.hasMindUpgrade == 0 ? "No" : "Yes"
                 }
             }
-            
-            HStack(alignment: .top, spacing: 8) {
-                VStack(alignment: .leading){
-                    Text("Mind upgrade")
-                    Picker("Mind upgrade", selection: self.$mindUpgradeSelection){
-                        ForEach(self.mindUpgrades ,id: \.self){ item in
-                            Text(String(item)).frame(maxWidth: .infinity)
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(4)
-                    .background(
-                        Rectangle()
-                            .fill(Color.LightGray)
-                            .cornerRadius(8)
-                    )
-                }
-                
-                VStack(alignment: .leading){
-                    Text("Mind upgrade")
-                    Picker("Mind upgrade", selection: self.$mindUpgradeSelection){
-                        ForEach(self.mindUpgrades ,id: \.self){ item in
-                            Text(String(item)).frame(maxWidth: .infinity)
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(4)
-                    .background(
-                        Rectangle()
-                            .fill(Color.LightGray)
-                            .cornerRadius(8)
-                    )
-                }
-
-            }
+            .background(Color.BackgroundColor)
+            .frame(maxWidth: .infinity)
             
             PostButton(
-                tdoll: Tdoll.init(
+                tdoll: Tdoll.tdollData.init(
                             id: Int(tdollId) ?? 0,
                             image: tdollImage,
                             name: tdollName,
@@ -185,23 +200,16 @@ struct TdollForm: View {
                             type: typeSelection,
                             hasMindUpgrade: nil), isEditing: self.isEditing)
             .environmentObject(TdollActionsViewModel())
+            .cornerRadius(32)
+            .padding(.horizontal)
         }
-        .padding()
-        .onAppear(){
-            self.tdollImage = tdoll?.image ?? ""
-            self.tdollId = String(tdoll?.id ?? 0)
-            self.tdollName = tdoll?.name ?? ""
-            self.tierSelection = tdoll?.tier ?? 2
-            self.manufacturerSelection = tdoll?.manufacturer ?? "16LAB"
-            self.typeSelection = tdoll?.type ?? .AR
-            self.mindUpgradeSelection = tdoll?.hasMindUpgrade == 0 ? "No" : "Yes"
-        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
 struct Form_Previews: PreviewProvider {
     static var previews: some View {
-        TdollForm(tdoll: Tdoll(
+        TdollForm(tdoll: Tdoll.tdollData(
             id: 56,
             image: "https://iopwiki.com/images/a/a2/ST_AR-15_S.png",
             name: "ST AR-15",

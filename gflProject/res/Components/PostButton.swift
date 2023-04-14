@@ -21,7 +21,7 @@ struct PostButton: View {
     
     var isEditing: Bool
     
-    init(tdoll: Tdoll, isEditing: Bool){
+    init(tdoll: Tdoll.tdollData, isEditing: Bool){
         self.ID = String(tdoll.id)
         self.imageURL = tdoll.image
         self.name = tdoll.name
@@ -39,7 +39,7 @@ struct PostButton: View {
             isPerformingPost = true
             
             // Recupera os dados do formulário
-            let tdoll = Tdoll.init(
+            let tdoll = Tdoll.tdollData.init(
                 id: Int(self.ID ?? "0") ?? 0,
                 image: self.imageURL ?? "",
                 name: self.name ?? "",
@@ -47,7 +47,7 @@ struct PostButton: View {
                 manufacturer: self.manufacturerSelection ?? "16LAB",
                 type: self.typeSelection ?? .AR,
                 hasMindUpgrade: nil
-                )
+            )
             
             
             // Executa a ação baseado na intenção do usuário
@@ -64,26 +64,25 @@ struct PostButton: View {
         } label: {
             Text("Salvar")
         }
-        .disabled(isPerformingPost)
-        .foregroundColor(.black)
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, alignment: .bottom)
         .padding(.vertical)
-        .background(Color.lightYellow)
+        .foregroundColor(.black)
+        .background(Color.Accent)
+        .disabled(isPerformingPost)
         .alert("Alert", isPresented: $isShowing, actions: {
             Button("OK", role: .cancel) {
-                if tdollPostVM.ErrorType == .NoError { presentation.wrappedValue.dismiss() }
+                if tdollPostVM.ErrorType == .noError { presentation.wrappedValue.dismiss() }
             }
         }, message: {
             Text(tdollPostVM.alertMessage)
         })
-
     }
 }
 
 struct PostButton_Previews: PreviewProvider {
     static var previews: some View {
         PostButton(tdoll:
-                Tdoll(
+                Tdoll.tdollData(
                 id: 56,
                 image: "https://iopwiki.com/images/a/a2/ST_AR-15_S.png",
                 name: "ST AR-15",

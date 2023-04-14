@@ -9,12 +9,12 @@ import Foundation
 import SwiftUI
 
 class TdollListViewModel: ObservableObject{
-    @Published var tdollsList: [Tdoll] = []
+    @Published var tdollsList: [Tdoll.tdollData] = []
     
     func getData() async throws -> Void{
         do{
-            guard let tdolls = try? await NetworkManager.shared.getTdolls() else { return }
-            DispatchQueue.main.async{
+            guard let tdolls = try? await TdollNetworkManager.shared.getTdolls() else { return }
+            DispatchQueue.main.async {
                 self.tdollsList = tdolls
             }
         }
@@ -22,7 +22,7 @@ class TdollListViewModel: ObservableObject{
     
     func getSearch(_ search: String) async throws -> Void{
         do{
-            guard let searchedTdoll = try? await NetworkManager.shared.search(search) else { return }
+            guard let searchedTdoll = try? await TdollNetworkManager.shared.search(search) else { return }
             DispatchQueue.main.async {
                 self.tdollsList = searchedTdoll
             }

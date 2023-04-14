@@ -9,10 +9,12 @@ import Foundation
 import SwiftUI
 
 extension Color{
-    static var LightGray = Color("LightGray")
-    static var Background = Color("Background")
-    static var Placeholder = Color("Placeholder")
-    static var lightYellow = Color("LightYellow")
-    static var Gray = Color("Gray")
-    static var Extra = Color("Extra")
+    static var theme: Color  { return Color("theme") }
+    static var BackgroundColor: Color  { return Color("LighterBackground") }
+    static var BackgroundColorList: Color  { return Color("ViewBackground") }
+    static var ColorPrimary: Color  { return Color("Accent") }
+    static var TextPrimary: Color  { return Color("TextPrimary") }
+    static var ColorExtra: Color  { return Color("Extra") }
+    static var Accent: Color  { return Color("Accent") }
+    static var LightText: Color { return Color("LightText") }
 }

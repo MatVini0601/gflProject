@@ -30,8 +30,11 @@ struct TdollList: View {
                         }
                     }
                     .padding()
+                    .background(Color.BackgroundColorList)
+                    .foregroundColor(Color.TextPrimary)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .edgesIgnoringSafeArea(.bottom)
             }else if isLoading{
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

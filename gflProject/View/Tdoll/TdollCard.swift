@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TdollCard: View {
-    @State var tdolls: Tdoll
+    @State var tdolls: Tdoll.tdollData
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             AsyncImage(url: URL(string: tdolls.image)!){image in
@@ -30,7 +30,7 @@ struct TdollCard: View {
         }
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(.white)
+                .fill(Color.BackgroundColor)
                 .shadow(color: .black.opacity(0.5), radius: 5, x: 1 , y: 5)
         )
         .frame(maxWidth: 200, maxHeight: 300)
@@ -39,7 +39,7 @@ struct TdollCard: View {
 
 struct TdollCard_Previews: PreviewProvider {
     static var previews: some View {
-        TdollForm(tdoll: Tdoll(
+        TdollForm(tdoll: Tdoll.tdollData(
             id: 56,
             image: "https://iopwiki.com/images/a/a2/ST_AR-15_S.png",
             name: "ST AR-15",

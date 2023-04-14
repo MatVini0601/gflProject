@@ -11,7 +11,7 @@ struct TdollDetails: View {
     @EnvironmentObject var ViewModel: TdollDetailsViewModel
     @Environment(\.presentationMode) var presentation
     
-    @State var tdoll: Tdoll
+    @State var tdoll: Tdoll.tdollData
     @State var tdollTags: [Tags.tagData]?
     
     @State private var isShowingAlert = false
@@ -20,8 +20,8 @@ struct TdollDetails: View {
     //Gradient blur
     private let gradient = LinearGradient(
         gradient: Gradient(stops: [
-            .init(color: .Gray, location: 0),
-            .init(color: .Gray.opacity(0.5), location: 0.1),
+            .init(color: Color.BackgroundColor, location: 0),
+            .init(color: Color.BackgroundColor.opacity(0.5), location: 0.1),
             .init(color: .clear, location: 0.2)
         ]),
         startPoint: .bottom,
@@ -30,6 +30,7 @@ struct TdollDetails: View {
     
     var body: some View {
         ScrollView{
+            //MARK: Main Content
             VStack(alignment: .leading) {
                 AsyncImage(url: URL(string: tdoll.image)){ image in
                     image
@@ -37,16 +38,15 @@ struct TdollDetails: View {
                         .aspectRatio(contentMode: .fit)
                 }placeholder: {
                     ProgressView()
-                        .frame(width: 300, height: 400, alignment: .topLeading)
+                        .frame(width: 300, height: 400, alignment: .center)
                 }
                 .frame(alignment: .leading)
                 .overlay { gradient }
                 
-                
-
                 VStack{
                     TagsView()
                     
+                    //MARK: Tdoll data(name, tier)
                     VStack(alignment: .leading){
                         Text(tdoll.name)
                             .font(.title).bold()
@@ -55,22 +55,21 @@ struct TdollDetails: View {
                         HStack{
                             if(tdoll.tier == 7){
                                 Text("Extra")
-                                    .foregroundColor(Color.Extra)
+                                    .foregroundColor(Color.ColorExtra)
                             }else{
                                 ForEach(0..<tdoll.tier, id: \.self){_ in
                                     Text(String("★"))
-                                        .foregroundColor(Color.lightYellow)
+                                        .foregroundColor(Color.Accent)
                                 }
                             }
                         }
                         .font(.custom("Montserrat", size: 18))
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(.gray.opacity(0.7))
-                        .frame(height: 1)
                     
+                    Divider()
+                    
+                    //MARK: Manufacturer
                     VStack{
                         Text("Manufacturer")
                             .font(.custom("Montserrat", size: 24))
@@ -83,34 +82,27 @@ struct TdollDetails: View {
                                 .frame(width: 100, height: 150, alignment: .center)
                             
                             Spacer()
-                            
-                            if tdoll.manufacturer == "16LAB"{
-                                Text(ViewModel.getLAB())
-                                    
-                            }else if tdoll.manufacturer == "IOP"{
-                                Text(ViewModel.getIOP())
-                            }else{
-                                Text(ViewModel.getUnknow())
-                            }
+                        
+                            Text(ViewModel.getManufacturer(tdoll.manufacturer))
                         }
                         .frame(maxWidth: .infinity)
                     }
                     
-                    GalleryView()
                 }
-                .padding(10)
-                .padding([.top], 0)
+                .padding(.horizontal, 10)
+                
+                GalleryView()
             }
         }
-        .foregroundColor(.white)
-        .background(Color.Gray)
+        .foregroundColor(Color.TextPrimary)
+        .background(Color.BackgroundColor)
         .toolbar {
+            //MARK: Delete Tdoll
             ToolbarItem {
                 Button {
                     isShowingAlert = true
                 } label: {
-                    Image(systemName: "trash.circle")
-                        .foregroundColor(.lightYellow)
+                    Image(systemName: "trash.circle").foregroundColor(Color.Accent)
                 }
                 .alert(tdoll.name, isPresented: $isShowingAlert, actions: {
                     Button("Não", role: .cancel) { }
@@ -122,12 +114,15 @@ struct TdollDetails: View {
                     Text("Você irá exluir '\(tdoll.name)' do banco de dados, quer continuar?")
                 })
             }
+            //MARK: Edit Tdoll
+            ToolbarItem{
+                NavigationLink {
+                    TdollForm(tdoll: tdoll, isEditing: true)
+                } label: {
+                    Image(systemName: "pencil").foregroundColor(Color.Accent)
+                }
+            }
         }
-        .navigationBarColor(
-            backgroundColor: Color.black.opacity(0.1),
-            titleColor: UIColor(Color.lightYellow),
-            blur: UIBlurEffect(style: .dark)
-        )
         .task {
             await ViewModel.getTdollTags(id: tdoll.id)
             await ViewModel.getTdollGallery(id: tdoll.id)
@@ -138,7 +133,7 @@ struct TdollDetails: View {
 
 struct TdollDetails_Previews: PreviewProvider {
     static var previews: some View {
-        TdollDetails(tdoll: Tdoll(
+        TdollDetails(tdoll: Tdoll.tdollData(
             id: 56,
             image: "https://iopwiki.com/images/a/a2/ST_AR-15_S.png",
             name: "ST AR-15",

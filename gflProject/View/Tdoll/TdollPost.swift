@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TdollPost: View {
-    @State var tdoll: Tdoll?
+    @State var tdoll: Tdoll.tdollData?
     
     //Parametro vem da View TdollDetail ou TopBar
     @State var isEditing: Bool
@@ -23,7 +23,7 @@ struct TdollPost: View {
         }
         .navigationTitle("Nova Tdoll")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarColor(backgroundColor: Color.white.opacity(0), titleColor: UIColor(Color.lightYellow), blur: .none)
+        .navigationBarColor(backgroundColor: Color.white.opacity(0), titleColor: UIColor(Color.Accent), blur: .none)
     }
 }
 
