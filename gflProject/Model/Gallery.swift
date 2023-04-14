@@ -17,7 +17,7 @@ class Gallery {
     }
     
     func getGallery(_ id: Int) async throws -> [galleryData]? {
-        guard let request = setRequest(method: "GET", string: "\(baseURL)/gallery/\(id)") else { return nil }
+        guard let request = setRequest(method: "GET", string: "\(baseURL)/\(id)/gallery") else { return nil }
         let (data, response) = try await URLSession.shared.data(for: request)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { return nil }
         do{
