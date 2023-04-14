@@ -17,7 +17,7 @@ struct NotFound: View {
                 .frame(maxWidth: 250, maxHeight: 300)
                 .grayscale(0.95)
             Text(message)
-                .foregroundColor(Color.Placeholder)
+                .foregroundColor(Color.LightText)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
