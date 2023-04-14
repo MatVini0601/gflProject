@@ -15,20 +15,20 @@ struct TagsView: View {
                 HStack(alignment: .top){
                     ForEach(ViewModel.tags, id: \.self){tag in
                         Text(tag.tagName)
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color.LightText)
                             .padding(.vertical, 4)
                             .padding(.horizontal, 8)
                             .background{
-                                Capsule().stroke(lineWidth: 1).fill(Color.LightGray)
+                                Capsule().stroke(lineWidth: 1).fill(Color.LightText)
                                     Capsule()
-                                    .fill(Color.Gray)
+                                    .fill(Color.BackgroundColor)
                                 }
                     }
                     .contentShape(Capsule())
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.vertical, 2)
-                .padding(.horizontal, 1)
+                .padding(.horizontal, 2)
             }
         }
     }

@@ -44,11 +44,11 @@ struct Search: View {
                         .frame(width: 12, height: 12)
                 }
                 .padding(12)
-                .background(Color.lightYellow)
+                .background(Color.Accent)
                 .foregroundColor(.black)
                 .cornerRadius(6)
             }
-            .background(Color.LightGray)
+            .background(Color.BackgroundColorList)
             .frame(maxHeight: 36)
             .cornerRadius(16)
         }

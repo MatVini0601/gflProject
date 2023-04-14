@@ -17,6 +17,7 @@ struct GalleryView: View {
                 Text("Gallery")
                     .font(.custom("Montserrat", size: 24))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
+                    .padding(.horizontal, 10)
                 ScrollView(.horizontal, showsIndicators: false){
                     HStack{
                         ForEach(ViewModel.gallery, id: \.self){ item in
@@ -24,10 +25,10 @@ struct GalleryView: View {
                                 .padding(.vertical, 4)
                                 .padding(.horizontal, 8)
                                 .background{
-                                    Capsule().stroke(lineWidth: 1).fill(Color.LightGray)
+                                    Capsule().stroke(lineWidth: 1).fill(Color.LightText)
                                     if ViewModel.skinNameSelection == item.model_name{
                                         Capsule()
-                                            .fill(Color.lightYellow)
+                                            .fill(Color.Accent)
                                             .matchedGeometryEffect(id: "SKIN", in: TdollDetails)
                                     }
                                 }
@@ -40,6 +41,7 @@ struct GalleryView: View {
                     }
                     .padding(1)
                 }
+                .padding(.horizontal, 10)
                 
                 AsyncImage(url: URL(string: ViewModel.skinImageLink)){image in
                     image
@@ -50,8 +52,8 @@ struct GalleryView: View {
                             .frame(width: 100, height: 200, alignment: .center)
                             .scaledToFill()
                     }
+                    .background(Color.BackgroundColorList)
             }
-            .padding(.horizontal)
         }
     }
 }
